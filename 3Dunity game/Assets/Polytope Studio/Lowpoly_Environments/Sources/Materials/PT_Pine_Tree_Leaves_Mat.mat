@@ -115,7 +115,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SnowAmount: 1
     - _SnowCoverage: 0.453
-    - _SnowGradient: 0.446
+    - _SnowGradient: 0.547
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TRANSLUCENCYONOFF: 1
@@ -129,7 +129,7 @@ Material:
     - _Translucency: 7.8
     - _UVSec: 0
     - _WINDMASKONOFF: 0
-    - _WindDensity: 0.01
+    - _WindDensity: 0.43
     - _WindDensity1: 0.01
     - _WindMovement: 10
     - _WindMovement1: 10
