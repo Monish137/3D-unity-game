@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!28 &4678407
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 4
+  m_Width: 2
+  m_Height: 2
+  m_CompleteImageSize: 20
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 2
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 20
+  _typelessdata: 383838ff383838ff383838ff383838ff383838ff
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!114 &10311996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,6 +1058,52 @@ MonoBehaviour:
   markerStartUVY: 0.14447021
   customPoints: []
   handleObject: {fileID: 0}
+--- !u!28 &169169418
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 4
+  m_Width: 2
+  m_Height: 2
+  m_CompleteImageSize: 20
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 2
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 20
+  _typelessdata: 414141ff414141ff414141ff414141ff414141ff
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!114 &174616031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1483,7 +1575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4578610032199466, guid: 9918a3172b0dc2241a3c59e06ab35f43, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 62.406143
+      value: 61.36
       objectReference: {fileID: 0}
     - target: {fileID: 4578610032199466, guid: 9918a3172b0dc2241a3c59e06ab35f43, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3450,6 +3542,52 @@ MonoBehaviour:
   markerStartUVY: 0.41596222
   customPoints: []
   handleObject: {fileID: 0}
+--- !u!28 &545603846
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 4
+  m_Width: 10
+  m_Height: 2
+  m_CompleteImageSize: 112
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 4
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 112
+  _typelessdata: ffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffcc
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1001 &547735730
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4714,6 +4852,10 @@ PrefabInstance:
     - target: {fileID: 4011650199783796442, guid: 8290bc46be1825d49932e2492480426b, type: 3}
       propertyPath: m_Name
       value: Character.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011650199783796442, guid: 8290bc46be1825d49932e2492480426b, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4011650199783796443, guid: 8290bc46be1825d49932e2492480426b, type: 3}
       propertyPath: m_Direction
@@ -7062,52 +7204,6 @@ MonoBehaviour:
   markerStartUVY: 0.7920456
   customPoints: []
   handleObject: {fileID: 0}
---- !u!28 &1093521280
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 4
-  m_Width: 2
-  m_Height: 2
-  m_CompleteImageSize: 20
-  m_MipsStripped: 0
-  m_TextureFormat: 4
-  m_MipCount: 2
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMipmapLimit: 1
-  m_MipmapLimitGroupName: 
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 0
-    m_WrapV: 0
-    m_WrapW: 0
-  m_LightmapFormat: 0
-  m_ColorSpace: 1
-  m_PlatformBlob: 
-  image data: 20
-  _typelessdata: 383838ff383838ff383838ff383838ff383838ff
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1001 &1111007597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7561,6 +7657,185 @@ MonoBehaviour:
   markerStartUVY: 0.42182732
   customPoints: []
   handleObject: {fileID: 0}
+--- !u!1 &1190247976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1190247978}
+  - component: {fileID: 1190247977}
+  m_Layer: 0
+  m_Name: MissionManager
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1190247977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190247976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e4f5988920da16489b5996f150f90f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MissionManager
+  missions:
+  - id: go_to_ector
+    title: "\u53BB\u89C1\u827E\u514B\u7279"
+    description: "\u6751\u6C11\u8BF4\u827E\u514B\u7279\u6B63\u5728\u627E\u4F60\uFF0C\u524D\u5F80\u4ED6\u7684\u4F4F\u6240\u4E0E\u4ED6\u89C1\u9762\u3002"
+    missionType: 0
+    requiredAmount: 1
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  - id: pick_up_sword
+    title: "\u9886\u53D6\u65B0\u5251"
+    description: "\u524D\u5F80\u94C1\u5320\u94FA\u9644\u8FD1\uFF0C\u62FF\u8D77\u4E3A\u4F60\u6253\u9020\u7684\u65B0\u5251\u3002"
+    missionType: 1
+    requiredAmount: 1
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  - id: hunt_for_food
+    title: "\u6536\u96C6\u730E\u7269"
+    description: "\u8FDB\u5165\u68EE\u6797\uFF0C\u6536\u96C6\u8DB3\u591F\u7684\u730E\u7269\u5E26\u56DE\u6751\u5E84\u3002"
+    missionType: 1
+    requiredAmount: 3
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  - id: return_to_ector
+    title: "\u56DE\u53BB\u590D\u547D"
+    description: "\u5E26\u7740\u730E\u7269\u8FD4\u56DE\u6751\u5E84\uFF0C\u5411\u827E\u514B\u7279\u62A5\u544A\u72E9\u730E\u7ED3\u679C\u3002"
+    missionType: 0
+    requiredAmount: 1
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  - id: read_notice_board
+    title: "\u67E5\u770B\u544A\u793A"
+    description: "\u524D\u5F80\u6751\u5E84\u4E2D\u592E\u7684\u5E03\u544A\u680F\uFF0C\u67E5\u770B\u65B0\u5F20\u8D34\u7684\u544A\u793A\u3002"
+    missionType: 0
+    requiredAmount: 1
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  - id: talk_to_merlin
+    title: "\u8BE2\u95EE\u6885\u6797"
+    description: "\u524D\u5F80\u5E03\u544A\u680F\u9644\u8FD1\uFF0C\u627E\u5230\u6885\u6797\u5E76\u4E86\u89E3\u53D1\u751F\u4E86\u4EC0\u4E48\u3002"
+    missionType: 2
+    requiredAmount: 1
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  - id: warn_ector
+    title: "\u901A\u77E5\u827E\u514B\u7279"
+    description: "\u628A\u5F3A\u76D7\u5373\u5C06\u6765\u88AD\u7684\u6D88\u606F\u544A\u8BC9\u827E\u514B\u7279\u3002"
+    missionType: 2
+    requiredAmount: 1
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  - id: arm_villagers
+    title: "\u6B66\u88C5\u6751\u6C11"
+    description: "\u5728\u5F3A\u76D7\u5230\u6765\u524D\uFF0C\u4E3A\u6751\u6C11\u51C6\u5907\u8DB3\u591F\u7684\u6B66\u5668\u3002"
+    missionType: 3
+    requiredAmount: 4
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  - id: defend_village
+    title: "\u4FDD\u536B\u6751\u5E84"
+    description: "\u524D\u5F80\u6751\u53E3\u8FCE\u6218\u5165\u4FB5\u8005\uFF0C\u4FDD\u62A4\u6751\u6C11\u548C\u5BB6\u56ED\u3002"
+    missionType: 0
+    requiredAmount: 1
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  - id: talk_after_battle
+    title: "\u6218\u540E\u4EA4\u8C08"
+    description: "\u6218\u6597\u7ED3\u675F\u540E\uFF0C\u4E0E\u6885\u6797\u548C\u827E\u514B\u7279\u4EA4\u8C08\uFF0C\u4E86\u89E3\u771F\u76F8\u3002"
+    missionType: 2
+    requiredAmount: 1
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
+  startingMissionIndex: 0
+  missionTitleText: {fileID: 0}
+  missionDescriptionText: {fileID: 0}
+  missionProgressText: {fileID: 0}
+--- !u!4 &1190247978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190247976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 161.77083, y: 79.39813, z: 145.78186}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1192209447
 GameObject:
   m_ObjectHideFlags: 0
@@ -669215,7 +669490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: bcb16d42279d6ed47a5921cfa608a0ce, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -669691,52 +669966,6 @@ MonoBehaviour:
   markerStartUVY: 0.31072998
   customPoints: []
   handleObject: {fileID: 0}
---- !u!28 &1252344984
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 4
-  m_Width: 10
-  m_Height: 2
-  m_CompleteImageSize: 112
-  m_MipsStripped: 0
-  m_TextureFormat: 4
-  m_MipCount: 4
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMipmapLimit: 1
-  m_MipmapLimitGroupName: 
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 0
-    m_WrapV: 0
-    m_WrapW: 0
-  m_LightmapFormat: 0
-  m_ColorSpace: 1
-  m_PlatformBlob: 
-  image data: 112
-  _typelessdata: ffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffcc
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1001 &1268075297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -671369,6 +671598,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e4ec2bbf6cff174bbde8650756051a8, type: 3}
+--- !u!28 &1528402121
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 4
+  m_Width: 12
+  m_Height: 12
+  m_CompleteImageSize: 760
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 4
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 760
+  _typelessdata: 0000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc0000000000000000000000000000000000000000ffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffcc0000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc000000000000000000000000000000000000000000000000000000007f7f7f667f7f7f66000000000000000000000000000000007f7f7f667f7f7f6600000000000000007f7f7f667f7f7f66bfbfbf99bfbfbf997f7f7f667f7f7f667f7f7f667f7f7f66bfbfbf99bfbfbf997f7f7f667f7f7f6600000000000000007f7f7f667f7f7f66000000000000000000000000000000007f7f7f667f7f7f660000000000000000000000007f7f7f66000000007f7f7f66bfbfbf997f7f7f66000000007f7f7f6600000000bfbfbf99
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!114 &1535583899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671765,52 +672040,6 @@ MonoBehaviour:
   markerStartUVY: 0.43037415
   customPoints: []
   handleObject: {fileID: 0}
---- !u!28 &1579306942
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 4
-  m_Width: 12
-  m_Height: 12
-  m_CompleteImageSize: 760
-  m_MipsStripped: 0
-  m_TextureFormat: 4
-  m_MipCount: 4
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMipmapLimit: 1
-  m_MipmapLimitGroupName: 
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 0
-    m_WrapV: 0
-    m_WrapW: 0
-  m_LightmapFormat: 0
-  m_ColorSpace: 1
-  m_PlatformBlob: 
-  image data: 760
-  _typelessdata: 0000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc0000000000000000000000000000000000000000ffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffccffffffcc0000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffccffffffcc000000000000000000000000000000000000000000000000000000007f7f7f667f7f7f66000000000000000000000000000000007f7f7f667f7f7f6600000000000000007f7f7f667f7f7f66bfbfbf99bfbfbf997f7f7f667f7f7f667f7f7f667f7f7f66bfbfbf99bfbfbf997f7f7f667f7f7f6600000000000000007f7f7f667f7f7f66000000000000000000000000000000007f7f7f667f7f7f660000000000000000000000007f7f7f66000000007f7f7f66bfbfbf997f7f7f66000000007f7f7f6600000000bfbfbf99
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!114 &1589691636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721020,7 +721249,7 @@ MonoBehaviour:
   m_Script: {fileID: 365290288, guid: f56d46228aee4734f9114056c53bb57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectid: 
+  projectid: 177623851169682
   updateInt: 10
   newSplatMapRestoreCode: 1
   toolbarInt: 3
@@ -721505,11 +721734,11 @@ MonoBehaviour:
   infoTexture: {fileID: 0}
   infoTexture2: {fileID: 0}
   infoTextures: []
-  plusSignTexture: {fileID: 1579306942}
-  minSignTexture: {fileID: 1252344984}
-  signPostHeaderBG: {fileID: 1093521280}
-  signPostListBG: {fileID: 2059426990}
-  signPostListSelBG: {fileID: 1952193011}
+  plusSignTexture: {fileID: 1528402121}
+  minSignTexture: {fileID: 545603846}
+  signPostHeaderBG: {fileID: 4678407}
+  signPostListBG: {fileID: 169169418}
+  signPostListSelBG: {fileID: 2033212141}
   editorSkin: 0
   showAllPrefabs: 1
   standardPrefabsFlag: 0
@@ -721561,7 +721790,7 @@ MonoBehaviour:
   - {fileID: 1192209449}
   terrainSplatTextures:
   - Splat 1 - Ground_Layer_02
-  activeTerrain: {fileID: 0}
+  activeTerrain: {fileID: 1192209449}
   activeTerrainY: 0
   selectedTerrain: 0
   selectedRoadsOnly: 0
@@ -721759,7 +721988,7 @@ MonoBehaviour:
   newRoadFlag: 0
   roadTypeUpdateFlag: 1
   roadUpdateDragFlag: 0
-  mouseDragFlag: 0
+  mouseDragFlag: 1
   roadScripts: []
   prefabScripts: []
   globalGridActive: 0
@@ -723053,52 +723282,6 @@ MonoBehaviour:
   markerStartUVY: 0.11489105
   customPoints: []
   handleObject: {fileID: 0}
---- !u!28 &1952193011
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 4
-  m_Width: 2
-  m_Height: 2
-  m_CompleteImageSize: 20
-  m_MipsStripped: 0
-  m_TextureFormat: 4
-  m_MipCount: 2
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMipmapLimit: 1
-  m_MipmapLimitGroupName: 
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 0
-    m_WrapV: 0
-    m_WrapW: 0
-  m_LightmapFormat: 0
-  m_ColorSpace: 1
-  m_PlatformBlob: 
-  image data: 20
-  _typelessdata: 4d4d4dff4d4d4dff4d4d4dff4d4d4dff4d4d4dff
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!114 &1970350377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724005,6 +724188,52 @@ MonoBehaviour:
   markerStartUVY: 0.9085388
   customPoints: []
   handleObject: {fileID: 0}
+--- !u!28 &2033212141
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 4
+  m_Width: 2
+  m_Height: 2
+  m_CompleteImageSize: 20
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 2
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 20
+  _typelessdata: 4d4d4dff4d4d4dff4d4d4dff4d4d4dff4d4d4dff
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1001 &2038740894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -724161,52 +724390,6 @@ MonoBehaviour:
   markerStartUVY: 0.63775635
   customPoints: []
   handleObject: {fileID: 0}
---- !u!28 &2059426990
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 4
-  m_Width: 2
-  m_Height: 2
-  m_CompleteImageSize: 20
-  m_MipsStripped: 0
-  m_TextureFormat: 4
-  m_MipCount: 2
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMipmapLimit: 1
-  m_MipmapLimitGroupName: 
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 0
-    m_WrapV: 0
-    m_WrapW: 0
-  m_LightmapFormat: 0
-  m_ColorSpace: 1
-  m_PlatformBlob: 
-  image data: 20
-  _typelessdata: 414141ff414141ff414141ff414141ff414141ff
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1001 &2060445133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -724714,3 +724897,4 @@ SceneRoots:
   - {fileID: 982192914}
   - {fileID: 1708820596}
   - {fileID: 1013888166}
+  - {fileID: 1190247978}
