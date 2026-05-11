@@ -52,6 +52,13 @@ public class MissionManager : MonoBehaviour
         }
 
         Instance = this;
+
+        if (missionTitleText == null || missionDescriptionText == null || missionProgressText == null)
+        {
+            CreateFallbackUi();
+        }
+
+        EnsureObjectiveTrackerExists();
     }
 
     private void Start()
@@ -250,5 +257,79 @@ public class MissionManager : MonoBehaviour
         {
             missionProgressText.text = $"{CurrentMission.currentAmount}/{Mathf.Max(1, CurrentMission.requiredAmount)}";
         }
+    }
+
+    private void CreateFallbackUi()
+    {
+        Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+
+        GameObject canvasObject = new GameObject("MissionCanvas");
+        Canvas canvas = canvasObject.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        CanvasScaler scaler = canvasObject.AddComponent<CanvasScaler>();
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920f, 1080f);
+        canvasObject.AddComponent<GraphicRaycaster>();
+
+        GameObject panelObject = new GameObject("MissionPanel");
+        panelObject.transform.SetParent(canvasObject.transform, false);
+
+        Image panelImage = panelObject.AddComponent<Image>();
+        panelImage.color = new Color(0f, 0f, 0f, 0.58f);
+
+        RectTransform panelRect = panelObject.GetComponent<RectTransform>();
+        panelRect.anchorMin = new Vector2(0.02f, 0.78f);
+        panelRect.anchorMax = new Vector2(0.32f, 0.97f);
+        panelRect.offsetMin = Vector2.zero;
+        panelRect.offsetMax = Vector2.zero;
+
+        missionTitleText = CreateText("MissionTitle", panelObject.transform, font, 28, FontStyle.Bold,
+            TextAnchor.UpperLeft, new Vector2(18f, -12f), new Vector2(-18f, -52f));
+        missionDescriptionText = CreateText("MissionDescription", panelObject.transform, font, 22, FontStyle.Normal,
+            TextAnchor.UpperLeft, new Vector2(18f, -54f), new Vector2(-18f, -52f));
+        missionProgressText = CreateText("MissionProgress", panelObject.transform, font, 22, FontStyle.Bold,
+            TextAnchor.LowerRight, new Vector2(18f, 12f), new Vector2(-18f, 46f));
+    }
+
+    private Text CreateText(
+        string objectName,
+        Transform parent,
+        Font font,
+        int fontSize,
+        FontStyle fontStyle,
+        TextAnchor alignment,
+        Vector2 offsetMin,
+        Vector2 offsetMax)
+    {
+        GameObject textObject = new GameObject(objectName);
+        textObject.transform.SetParent(parent, false);
+
+        Text text = textObject.AddComponent<Text>();
+        text.font = font;
+        text.fontSize = fontSize;
+        text.fontStyle = fontStyle;
+        text.alignment = alignment;
+        text.color = Color.white;
+        text.horizontalOverflow = HorizontalWrapMode.Wrap;
+        text.verticalOverflow = VerticalWrapMode.Overflow;
+
+        RectTransform rectTransform = textObject.GetComponent<RectTransform>();
+        rectTransform.anchorMin = Vector2.zero;
+        rectTransform.anchorMax = Vector2.one;
+        rectTransform.offsetMin = new Vector2(offsetMin.x, offsetMin.y);
+        rectTransform.offsetMax = new Vector2(offsetMax.x, offsetMax.y);
+
+        return text;
+    }
+
+    private void EnsureObjectiveTrackerExists()
+    {
+        if (FindFirstObjectByType<ObjectiveTracker>() != null)
+        {
+            return;
+        }
+
+        GameObject trackerObject = new GameObject("ObjectiveTracker");
+        trackerObject.AddComponent<ObjectiveTracker>();
     }
 }

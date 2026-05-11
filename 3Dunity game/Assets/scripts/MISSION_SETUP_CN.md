@@ -176,3 +176,79 @@
 - 敌人击杀计数任务
 - 任务完成提示动画
 - 小地图任务标记
+
+## 九、NPC 对话系统
+
+项目里现在新增了两个脚本：
+
+- `DialogueManager`
+- `NpcDialogue`
+
+### 1. 先放一个对话管理器
+
+1. 在场景里创建空物体 `DialogueManager`
+2. 挂上 `DialogueManager.cs`
+
+这个脚本在你没有手动绑定 UI 的情况下，会自动生成一个基础对话框：
+
+- 上方显示说话人名字
+- 中间显示对话内容
+- 右下角显示“按 E 继续”
+
+### 2. 给 NPC 挂对话脚本
+
+1. 选中 NPC
+2. 给 NPC 或其子物体添加 `Collider`
+3. 勾选 `Is Trigger`
+4. 挂上 `NpcDialogue.cs`
+
+然后在 `Dialogue Lines` 里添加台词：
+
+- `Speaker Name`：说话人名字
+- `Content`：这一句的内容
+
+### 3. 靠近后显示“按 E 对话”
+
+如果你想显示交互提示，有两种做法：
+
+方案 A：先不做提示 UI
+
+- 可以直接不填 `Prompt Root`
+- 玩家靠近后依然能按 `E` 开始对话
+
+方案 B：自己做一个提示文本
+
+1. 在 Canvas 下创建一个小面板或文本
+2. 默认设为隐藏
+3. 拖到 `Prompt Root`
+4. 如果里面有 `Text`，再拖到 `Prompt Text`
+
+这样玩家靠近 NPC 时就会显示“按 E 对话”。
+
+### 4. 对话结束后推进任务
+
+如果这个 NPC 对话要完成某个任务：
+
+1. 在 `NpcDialogue` 上拖入 `MissionManager`
+2. 填 `Mission Id`
+3. 保持 `Complete Mission When Dialogue Ends` 勾选
+
+例如：
+
+- 梅林：`missionId = talk_to_merlin`
+- 艾克特：`missionId = warn_ector`
+- 战后交谈：`missionId = talk_after_battle`
+
+### 5. 使用规则
+
+- 靠近 NPC
+- 按 `E` 开始对话
+- 再按 `E` 逐句继续
+- 对话结束后自动关闭对话框
+
+### 6. 注意事项
+
+- 玩家必须是 `Player` Tag
+- NPC 身上的 Collider 必须勾 `Is Trigger`
+- 场景里要有一个 `DialogueManager`
+- 如果你想让 NPC 只能对话一次，勾选 `One Time Only`
