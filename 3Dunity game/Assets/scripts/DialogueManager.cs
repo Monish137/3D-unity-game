@@ -15,6 +15,13 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private KeyCode advanceKey = KeyCode.E;
     [SerializeField] private string continueHint = "按 E 继续";
 
+    [Header("Fallback UI Layout")]
+    [SerializeField] private Vector2 panelAnchorMin = new Vector2(0.06f, 0.04f);
+    [SerializeField] private Vector2 panelAnchorMax = new Vector2(0.94f, 0.27f);
+    [SerializeField] private int speakerNameFontSize = 34;
+    [SerializeField] private int dialogueContentFontSize = 30;
+    [SerializeField] private int continueHintFontSize = 24;
+
     public bool IsDialogueOpen => activeDialogue != null;
 
     private NpcDialogue activeDialogue;
@@ -160,17 +167,17 @@ public class DialogueManager : MonoBehaviour
         panelImage.color = new Color(0f, 0f, 0f, 0.82f);
 
         RectTransform panelRect = panelObject.GetComponent<RectTransform>();
-        panelRect.anchorMin = new Vector2(0.08f, 0.05f);
-        panelRect.anchorMax = new Vector2(0.92f, 0.28f);
+        panelRect.anchorMin = panelAnchorMin;
+        panelRect.anchorMax = panelAnchorMax;
         panelRect.offsetMin = Vector2.zero;
         panelRect.offsetMax = Vector2.zero;
 
-        speakerNameText = CreateText("SpeakerName", panelObject.transform, font, 28, FontStyle.Bold,
-            TextAnchor.UpperLeft, new Vector2(20f, -15f), new Vector2(-20f, -55f));
-        dialogueContentText = CreateText("DialogueContent", panelObject.transform, font, 24, FontStyle.Normal,
-            TextAnchor.UpperLeft, new Vector2(20f, -60f), new Vector2(-20f, -45f));
-        continueHintText = CreateText("ContinueHint", panelObject.transform, font, 20, FontStyle.Italic,
-            TextAnchor.LowerRight, new Vector2(20f, 15f), new Vector2(-20f, 45f));
+        speakerNameText = CreateText("SpeakerName", panelObject.transform, font, speakerNameFontSize, FontStyle.Bold,
+            TextAnchor.MiddleLeft, new Vector2(28f, -12f), new Vector2(-28f, -92f));
+        dialogueContentText = CreateText("DialogueContent", panelObject.transform, font, dialogueContentFontSize, FontStyle.Normal,
+            TextAnchor.UpperLeft, new Vector2(28f, -108f), new Vector2(-28f, -52f));
+        continueHintText = CreateText("ContinueHint", panelObject.transform, font, continueHintFontSize, FontStyle.Bold,
+            TextAnchor.LowerRight, new Vector2(28f, 16f), new Vector2(-28f, 50f));
 
         dialogueRoot = panelObject;
     }

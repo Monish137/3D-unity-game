@@ -286,7 +286,7 @@ public class MissionManager : MonoBehaviour
         missionTitleText = CreateText("MissionTitle", panelObject.transform, font, 28, FontStyle.Bold,
             TextAnchor.UpperLeft, new Vector2(18f, -12f), new Vector2(-18f, -52f));
         missionDescriptionText = CreateText("MissionDescription", panelObject.transform, font, 22, FontStyle.Normal,
-            TextAnchor.UpperLeft, new Vector2(18f, -54f), new Vector2(-18f, -52f));
+            TextAnchor.UpperLeft, new Vector2(18f, -60f), new Vector2(-18f, -100f));
         missionProgressText = CreateText("MissionProgress", panelObject.transform, font, 22, FontStyle.Bold,
             TextAnchor.LowerRight, new Vector2(18f, 12f), new Vector2(-18f, 46f));
     }

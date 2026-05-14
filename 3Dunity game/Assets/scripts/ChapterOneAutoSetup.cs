@@ -8,6 +8,7 @@ public class ChapterOneAutoSetup : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] private NpcDialogue merlinDialogue;
+    [SerializeField] private Camera gameplayCamera;
 
     [Header("Scene Positions")]
     [SerializeField] private Vector3 ectorPosition = new Vector3(112f, 63f, 173f);
@@ -62,14 +63,11 @@ public class ChapterOneAutoSetup : MonoBehaviour
         }
 
         EnsurePlayerTag();
+        EnsurePlayerSkills();
         ConfigureMerlin();
         CreateMissionTrigger("GoToEctorTrigger", "go_to_ector", ectorPosition, new Vector3(4f, 3f, 4f));
         CreateCollectible("SwordPickup", "领取新剑", "pick_up_sword", swordPosition, Color.yellow);
-
-        for (int i = 0; i < huntPositions.Length; i++)
-        {
-            CreateCollectible($"FoodPickup_{i + 1}", "猎物", "hunt_for_food", huntPositions[i], new Color(0.76f, 0.35f, 0.18f));
-        }
+        ConfigureHuntAnimals();
 
         CreateMissionTrigger("ReturnToEctorTrigger", "return_to_ector", villageReturnPosition, new Vector3(4f, 3f, 4f));
         CreateMissionTrigger("NoticeBoardTrigger", "read_notice_board", noticeBoardPosition, new Vector3(4f, 3f, 4f));
@@ -102,6 +100,121 @@ public class ChapterOneAutoSetup : MonoBehaviour
         {
             player.tag = "Player";
         }
+    }
+
+    private void EnsurePlayerSkills()
+    {
+        if (player == null)
+        {
+            return;
+        }
+
+        PlayerSkills playerSkills = player.GetComponent<PlayerSkills>();
+        if (playerSkills == null)
+        {
+            playerSkills = player.gameObject.AddComponent<PlayerSkills>();
+        }
+
+        if (player.GetComponent<PlayerInventory>() == null)
+        {
+            player.gameObject.AddComponent<PlayerInventory>();
+        }
+
+        if (gameplayCamera == null)
+        {
+            gameplayCamera = FindGameplayCamera();
+        }
+
+        SetPrivateField(playerSkills, "attackCamera", gameplayCamera);
+        SetPrivateField(playerSkills, "attackOrigin", player);
+    }
+
+    private void ConfigureHuntAnimals()
+    {
+        AnimalHealth[] existingAnimals = FindObjectsByType<AnimalHealth>(FindObjectsSortMode.None);
+        if (existingAnimals.Length > 0)
+        {
+            return;
+        }
+
+        GameObject[] roots = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+        int configuredCount = 0;
+
+        for (int i = 0; i < roots.Length; i++)
+        {
+            GameObject candidate = roots[i];
+            if (candidate == null)
+            {
+                continue;
+            }
+
+            string lowerName = candidate.name.ToLowerInvariant();
+            if (!IsHuntAnimalName(lowerName))
+            {
+                continue;
+            }
+
+            if (candidate.GetComponentInChildren<Renderer>() == null)
+            {
+                continue;
+            }
+
+            if (candidate.GetComponent<Animator>() == null && candidate.GetComponent<BearMovement>() == null)
+            {
+                continue;
+            }
+
+            AnimalHealth animalHealth = candidate.GetComponent<AnimalHealth>();
+            if (animalHealth == null)
+            {
+                animalHealth = candidate.AddComponent<AnimalHealth>();
+            }
+
+            configuredCount++;
+        }
+
+        if (configuredCount == 0)
+        {
+            for (int i = 0; i < huntPositions.Length; i++)
+            {
+                CreateFallbackAnimal($"HuntAnimal_{i + 1}", huntPositions[i]);
+            }
+        }
+    }
+
+    private bool IsHuntAnimalName(string lowerName)
+    {
+        return lowerName.Contains("bear") ||
+               lowerName.Contains("boar") ||
+               lowerName.Contains("stag") ||
+               lowerName.Contains("moose") ||
+               lowerName.Contains("doe") ||
+               lowerName.Contains("wolf") ||
+               lowerName.Contains("fox") ||
+               lowerName.Contains("hare") ||
+               lowerName.Contains("calf");
+    }
+
+    private void CreateFallbackAnimal(string objectName, Vector3 position)
+    {
+        if (GameObject.Find(objectName) != null)
+        {
+            return;
+        }
+
+        GameObject animal = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+        animal.name = objectName;
+        animal.transform.position = position;
+        animal.transform.localScale = new Vector3(1.6f, 1.2f, 1.6f);
+
+        Renderer renderer = animal.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = new Color(0.36f, 0.24f, 0.16f);
+        }
+
+        animal.AddComponent<AnimalHealth>();
+        CreateWorldLabel(animal.transform, "猎物");
     }
 
     private void CreateMissionTrigger(string objectName, string missionId, Vector3 position, Vector3 size)
@@ -148,6 +261,11 @@ public class ChapterOneAutoSetup : MonoBehaviour
         SetPrivateField(missionCollectible, "missionManager", missionManager);
         SetPrivateField(missionCollectible, "missionId", missionId);
         SetPrivateField(missionCollectible, "amount", 1);
+
+        if (missionId == "pick_up_sword")
+        {
+            collectible.AddComponent<SwordPickup>();
+        }
 
         CreateWorldLabel(collectible.transform, label);
     }
@@ -201,6 +319,28 @@ public class ChapterOneAutoSetup : MonoBehaviour
         System.Reflection.FieldInfo targetField = typeof(Minimap).GetField("target",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         return targetField?.GetValue(minimap) as Transform;
+    }
+
+    private Camera FindGameplayCamera()
+    {
+        Camera[] cameras = FindObjectsByType<Camera>(FindObjectsSortMode.None);
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            Camera candidate = cameras[i];
+            if (!candidate.isActiveAndEnabled || candidate.targetTexture != null)
+            {
+                continue;
+            }
+
+            if (candidate.name.ToLowerInvariant().Contains("mini"))
+            {
+                continue;
+            }
+
+            return candidate;
+        }
+
+        return Camera.main;
     }
 
     private void SetPrivateField(Object targetObject, string fieldName, object value)
