@@ -19,9 +19,30 @@ public class PlayerSkills : MonoBehaviour
     [SerializeField] private string attackTriggerName = "Attack";
     [SerializeField] private string defenseTriggerName = "Defense";
     [SerializeField] private string swordHandBoneName = "Hand.R";
+    [SerializeField] private string[] swordHandBoneFallbackNames =
+    {
+        "Hand.R",
+        "hand.R",
+        "Hand_R",
+        "RightHand",
+        "Right Hand",
+        "R_Hand",
+        "Hand_Right",
+        "mixamorig:RightHand",
+        "mixamorig1:RightHand",
+        "Bip001 R Hand",
+        "Bip01 R Hand",
+        "B_R_Hand",
+        "DEF-hand.R"
+    };
     [SerializeField] private Vector3 swordLocalPosition = new Vector3(-0.02f, 0.02f, 0.02f);
     [SerializeField] private Vector3 swordLocalRotation = new Vector3(0f, 0f, 90f);
     [SerializeField] private Vector3 swordLocalScale = new Vector3(0.18f, 0.65f, 0.08f);
+
+    [Header("Fallback (when no hand bone found)")]
+    [SerializeField] private Vector3 swordFallbackLocalPosition = new Vector3(0.4f, 1.1f, 0.3f);
+    [SerializeField] private Vector3 swordFallbackLocalRotation = new Vector3(0f, 0f, 60f);
+    [SerializeField] private Vector3 swordFallbackLocalScale = new Vector3(0.18f, 0.65f, 0.08f);
 
     [Header("Attack")]
     [SerializeField] private Camera attackCamera;
@@ -87,11 +108,13 @@ public class PlayerSkills : MonoBehaviour
     {
         if (hasSword == equipped)
         {
+            EnsureSwordVisualExists();
             UpdateSwordVisual();
             return;
         }
 
         hasSword = equipped;
+        EnsureSwordVisualExists();
         UpdateSwordVisual();
         SwordEquipChanged?.Invoke(hasSword);
         Debug.Log(equipped
@@ -169,17 +192,26 @@ public class PlayerSkills : MonoBehaviour
             return;
         }
 
-        Transform handBone = FindChildRecursive(transform, swordHandBoneName);
-        if (handBone == null)
-        {
-            return;
-        }
+        Transform handBone = ResolveHandBone();
+        bool attachedToBone = handBone != null;
+        Transform parent = attachedToBone ? handBone : transform;
 
         equippedSwordVisual = new GameObject("EquippedSwordVisual");
-        equippedSwordVisual.transform.SetParent(handBone, false);
-        equippedSwordVisual.transform.localPosition = swordLocalPosition;
-        equippedSwordVisual.transform.localRotation = Quaternion.Euler(swordLocalRotation);
-        equippedSwordVisual.transform.localScale = swordLocalScale;
+        equippedSwordVisual.transform.SetParent(parent, false);
+
+        if (attachedToBone)
+        {
+            equippedSwordVisual.transform.localPosition = swordLocalPosition;
+            equippedSwordVisual.transform.localRotation = Quaternion.Euler(swordLocalRotation);
+            equippedSwordVisual.transform.localScale = swordLocalScale;
+        }
+        else
+        {
+            equippedSwordVisual.transform.localPosition = swordFallbackLocalPosition;
+            equippedSwordVisual.transform.localRotation = Quaternion.Euler(swordFallbackLocalRotation);
+            equippedSwordVisual.transform.localScale = swordFallbackLocalScale;
+            Debug.LogWarning($"PlayerSkills: Hand bone '{swordHandBoneName}' not found. Sword visual attached to player root as fallback. Configure 'swordHandBoneName' or 'swordHandBoneFallbackNames' to match your rig.");
+        }
 
         GameObject blade = GameObject.CreatePrimitive(PrimitiveType.Cube);
         blade.name = "Blade";
@@ -205,6 +237,79 @@ public class PlayerSkills : MonoBehaviour
         DisableCollider(blade);
         DisableCollider(guard);
         DisableCollider(handle);
+    }
+
+    private Transform ResolveHandBone()
+    {
+        Transform bone = FindChildRecursive(transform, swordHandBoneName);
+        if (bone != null)
+        {
+            return bone;
+        }
+
+        if (swordHandBoneFallbackNames != null)
+        {
+            for (int i = 0; i < swordHandBoneFallbackNames.Length; i++)
+            {
+                string candidate = swordHandBoneFallbackNames[i];
+                if (string.IsNullOrWhiteSpace(candidate))
+                {
+                    continue;
+                }
+
+                bone = FindChildRecursive(transform, candidate);
+                if (bone != null)
+                {
+                    return bone;
+                }
+            }
+        }
+
+        return FindHandBoneByKeyword(transform);
+    }
+
+    private static Transform FindHandBoneByKeyword(Transform root)
+    {
+        if (root == null)
+        {
+            return null;
+        }
+
+        Transform best = null;
+        int bestScore = 0;
+        FindHandBoneByKeywordRecursive(root, ref best, ref bestScore);
+        return best;
+    }
+
+    private static void FindHandBoneByKeywordRecursive(Transform node, ref Transform best, ref int bestScore)
+    {
+        string lower = node.name.ToLowerInvariant();
+        bool hasHand = lower.Contains("hand");
+        bool hasRight = lower.Contains("right") || lower.EndsWith(".r") || lower.EndsWith("_r") || lower.EndsWith(" r");
+
+        if (hasHand)
+        {
+            int score = 1;
+            if (hasRight)
+            {
+                score += 2;
+            }
+            if (!lower.Contains("forearm") && !lower.Contains("upper") && !lower.Contains("shoulder"))
+            {
+                score += 1;
+            }
+
+            if (score > bestScore)
+            {
+                bestScore = score;
+                best = node;
+            }
+        }
+
+        for (int i = 0; i < node.childCount; i++)
+        {
+            FindHandBoneByKeywordRecursive(node.GetChild(i), ref best, ref bestScore);
+        }
     }
 
     private void UpdateSwordVisual()
