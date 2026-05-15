@@ -8824,6 +8824,7 @@ GameObject:
   - component: {fileID: 1192209449}
   - component: {fileID: 1192209448}
   - component: {fileID: 1192209451}
+  - component: {fileID: 1192209452}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -670360,6 +670361,28 @@ MonoBehaviour:
   ignore: 0
   backupObject: {fileID: 0}
   terrain: {fileID: 0}
+--- !u!95 &1192209452
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192209447}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8db159c8b2de84449bd060006982d0be, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1203028736
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -671654,15 +671677,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1203856646013037602, guid: 0a0917aa8d5a96c4dac34dd56cf9cc3b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 63.0266
+      value: 117.86
       objectReference: {fileID: 0}
     - target: {fileID: 1203856646013037602, guid: 0a0917aa8d5a96c4dac34dd56cf9cc3b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 54.5676
+      value: 58.84
       objectReference: {fileID: 0}
     - target: {fileID: 1203856646013037602, guid: 0a0917aa8d5a96c4dac34dd56cf9cc3b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 167.53091
+      value: 132.99
       objectReference: {fileID: 0}
     - target: {fileID: 1203856646013037602, guid: 0a0917aa8d5a96c4dac34dd56cf9cc3b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -674564,7 +674587,7 @@ MonoBehaviour:
   swordDefenseBonus: 5
   attackKey: 323
   defenseKey: 324
-  animator: {fileID: 0}
+  animator: {fileID: 362463488}
   attackTriggerName: Attack
   defenseTriggerName: Defense
   swordHandBoneName: Hand.R
@@ -674582,7 +674605,7 @@ MonoBehaviour:
   - Bip01 R Hand
   - B_R_Hand
   - DEF-hand.R
-  swordLocalPosition: {x: -0.02, y: 0.02, z: 0.02}
+  swordLocalPosition: {x: -0.15, y: 0.1, z: 0.02}
   swordLocalRotation: {x: 0, y: 0, z: 90}
   swordLocalScale: {x: 0.18, y: 0.65, z: 0.08}
   swordFallbackLocalPosition: {x: 0.4, y: 1.1, z: 0.3}
@@ -674595,7 +674618,7 @@ MonoBehaviour:
   attackMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  attackCooldown: 0.5
+  attackCooldown: 0.8
 --- !u!114 &1691505108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724205,15 +724228,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 188.1
+      value: 117.37
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 60.16
+      value: 57.71
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 217.6
+      value: 138.41
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalRotation.w
