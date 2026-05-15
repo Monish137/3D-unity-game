@@ -2499,6 +2499,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 110800, guid: 97c46f85ed671244b83b2409f56039d1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 330288335}
+    - targetCorrespondingSourceObject: {fileID: 110800, guid: 97c46f85ed671244b83b2409f56039d1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 330288337}
   m_SourcePrefab: {fileID: 100100000, guid: 97c46f85ed671244b83b2409f56039d1, type: 3}
 --- !u!1 &330288334 stripped
 GameObject:
@@ -2528,6 +2531,28 @@ CapsuleCollider:
   m_Height: 2.600689
   m_Direction: 1
   m_Center: {x: 0, y: 0.80034447, z: 0}
+--- !u!95 &330288337
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330288334}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 084ed73b7e7c0754eb337259e9209468, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &334291061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2819,7 +2844,7 @@ MonoBehaviour:
   - speakerName: "\u4E9A\u745F"
     content: "\u6211\u660E\u767D\u4E86\uFF0C\u6211\u4F1A\u5C3D\u6211\u6240\u80FD\uFF0C\u4E0D\u4F1A\u8BA9\u6751\u6C11\u5931\u671B"
   interactionKey: 101
-  oneTimeOnly: 0
+  oneTimeOnly: 1
   promptRoot: {fileID: 0}
   promptText: {fileID: 0}
   promptMessage: "\u6309 E \u5BF9\u8BDD"
@@ -2858,7 +2883,7 @@ Transform:
   m_GameObject: {fileID: 384171007}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 76.296, y: 58.12, z: 209.36}
+  m_LocalPosition: {x: 77.93, y: 58.12, z: 209.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8193,26 +8218,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcDialogue
   dialogueLines:
   - speakerName: "\u4E9A\u745F"
-    content: "\u827E\u514B\u7279\u5148\u751F\uFF0C\u6211\u542C\u8BF4\u60A8\u5728\u627E\u6211\uFF1F"
+    content: "\u827E\u514B\u7279\u5148\u751F\uFF0C\u6211\u56DE\u6765\u4E86\u3002\u6211\u5E26\u56DE\u4E86\u4E00\u4E9B\u91CE\u732A\u548C\u5176\u4ED6\u730E\u7269\u3002"
   - speakerName: "\u827E\u514B\u7279"
-    content: "\u4E9A\u745F\uFF0C\u6765\u5F97\u6B63\u597D\uFF0C\u6211\u6709\u4E8B\u548C\u4F60\u5546\u91CF\u3002"
-  - speakerName: "\u827E\u514B\u7279"
-    content: "\u8FD9\u4E2A\u51AC\u5929\u7279\u522B\u4E25\u9177\uFF0C\u6751\u91CC\u7684\u98DF\u7269\u50A8\u5907\u4E0D\u8DB3\uFF0C\u6709\u4E9B\u5BB6\u5EAD\u5DF2\u7ECF\u5F00\u59CB\u7F3A\u7CAE\u3002"
+    content: "\u54E6\uFF0C\u4E9A\u745F\uFF0C\u8FD9\u771F\u662F\u592A\u597D\u4E86\u3002\u4F60\u7684\u72E9\u730E\u6210\u679C\u4F1A\u8BA9\u6211\u4EEC\u7684\u51AC\u5929\u66F4\u52A0\u597D\u8FC7\u3002"
   - speakerName: "\u4E9A\u745F"
-    content: "\u8FD9\u786E\u5B9E\u662F\u4E2A\u95EE\u9898\u3002\u6211\u4EEC\u9700\u8981\u66F4\u591A\u98DF\u7269\u6765\u5E2E\u52A9\u4ED6\u4EEC\u3002"
+    content: "\u6211\u5F88\u9AD8\u5174\u80FD\u5E2E\u5230\u5927\u5BB6\u3002"
   - speakerName: "\u827E\u514B\u7279"
-    content: "\u6211\u60F3\u8BA9\u4F60\u53BB\u5C71\u91CC\u6253\u730E\uFF0C\u5C3D\u53EF\u80FD\u591A\u5E26\u4E9B\u5927\u578B\u730E\u7269\u56DE\u6765\u3002"
-  - speakerName: "\u827E\u514B\u7279"
-    content: "\u94C1\u5320\u8FD8\u4E3A\u4F60\u6253\u9020\u4E86\u4E00\u628A\u65B0\u5251\uFF0C\u4F60\u53BB\u53D6\u6765\u5427\u3002"
+    content: "\u4F60\u548C\u51EF\u5C0F\u65F6\u5019\u5F88\u50CF\uFF0C\u6211\u76F8\u4FE1\u4F60\u5C06\u6765\u4E5F\u4F1A\u6210\u4E3A\u51FA\u8272\u7684\u9A91\u58EB\u3002"
   - speakerName: "\u4E9A\u745F"
-    content: "\u6211\u660E\u767D\u4E86\uFF0C\u6211\u4F1A\u5C3D\u6211\u6240\u80FD\uFF0C\u4E0D\u4F1A\u8BA9\u6751\u6C11\u5931\u671B"
+    content: "\u8C22\u8C22\u60A8\uFF0C\u827E\u514B\u7279\u5148\u751F\u3002\u6211\u4F1A\u52AA\u529B\u7684\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u4E0D\u8FC7\u6211\u5728\u6811\u6797\u91CC\u78B0\u5230\u4E86\u4E00\u4E9B\u81EA\u79F0\u730E\u624B\u7684\u4EBA\uFF0C\u4ED6\u4EEC\u770B\u8D77\u6765\u5F88\u5389\u5BB3\u3002"
+  - speakerName: "\u827E\u514B\u7279"
+    content: "\u8FD9\u8BA9\u6211\u5F88\u62C5\u5FC3\u3002\u8FD9\u4E2A\u6751\u5B50\u4E00\u76F4\u5F88\u5E73\u9759\uFF0C\u5916\u6765\u7684\u964C\u751F\u4EBA\u53EF\u80FD\u4F1A\u5E26\u6765\u9EBB\u70E6\u3002"
+  - speakerName: "\u827E\u514B\u7279"
+    content: "\u4ECA\u5929\u6751\u91CC\u6765\u4E86\u4E00\u4E2A\u4FE1\u4F7F\uFF0C\u8D34\u4E86\u4E00\u4EFD\u65B0\u7684\u5E03\u544A\u3002\u4F60\u5E94\u8BE5\u53BB\u770B\u770B\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u65B0\u7684\u5E03\u544A\uFF1F\u6211\u73B0\u5728\u5C31\u53BB\u770B\u770B\u3002"
   interactionKey: 101
   oneTimeOnly: 0
   promptRoot: {fileID: 0}
   promptText: {fileID: 0}
   promptMessage: "\u6309 E \u5BF9\u8BDD"
   missionManager: {fileID: 1495548378}
-  missionId: go_to_ector
+  missionId: return_to_ector
   completeMissionWhenDialogueEnds: 1
 --- !u!136 &1104537175
 CapsuleCollider:
@@ -8246,7 +8275,7 @@ Transform:
   m_GameObject: {fileID: 1104537173}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 83.3, y: 58.12, z: 209.36}
+  m_LocalPosition: {x: 79.627, y: 58.12, z: 209.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -724225,6 +724254,14 @@ PrefabInstance:
     - target: {fileID: 3734775969355451150, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734775969355451151, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3734775969355451151, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+      propertyPath: healthBarOffset.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.x

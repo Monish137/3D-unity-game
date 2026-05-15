@@ -29,6 +29,22 @@ public class NpcDialogue : MonoBehaviour
     [SerializeField] private string missionId;
     [SerializeField] private bool completeMissionWhenDialogueEnds = true;
 
+    [Header("Mission Gate (unlock condition)")]
+    [Tooltip("How this dialogue's availability is gated by mission progress.")]
+    [SerializeField] private DialogueGateMode gateMode = DialogueGateMode.Always;
+    [Tooltip("Mission id used to evaluate the gate. Leave empty when GateMode is Always.")]
+    [SerializeField] private string gateMissionId;
+    [Tooltip("Message shown when the dialogue is still locked. Leave empty to hide the prompt entirely.")]
+    [SerializeField] private string lockedPromptMessage = "现在还不能对话";
+
+    public enum DialogueGateMode
+    {
+        Always,
+        RequireMissionCurrent,
+        RequireMissionStartedOrLater,
+        RequireMissionCompleted
+    }
+
     private static GameObject runtimePromptRoot;
     private static Text runtimePromptText;
     private static NpcDialogue runtimePromptOwner;
@@ -76,6 +92,23 @@ public class NpcDialogue : MonoBehaviour
             return;
         }
 
+        bool unlocked = IsUnlocked();
+
+        if (!unlocked)
+        {
+            if (string.IsNullOrEmpty(lockedPromptMessage))
+            {
+                SetPromptVisible(false);
+            }
+            else
+            {
+                UpdatePromptText();
+                SetPromptVisible(true);
+            }
+            return;
+        }
+
+        UpdatePromptText();
         SetPromptVisible(true);
 
         if (Input.GetKeyDown(interactionKey))
@@ -113,6 +146,11 @@ public class NpcDialogue : MonoBehaviour
 
     private void StartDialogue()
     {
+        if (!IsUnlocked())
+        {
+            return;
+        }
+
         DialogueManager dialogueManager = DialogueManager.EnsureInstance();
 
         if (dialogueManager == null || dialogueLines == null || dialogueLines.Length == 0)
@@ -124,6 +162,55 @@ public class NpcDialogue : MonoBehaviour
         dialogueStarted = true;
         SetPromptVisible(false);
         dialogueManager.StartDialogue(this, dialogueLines);
+    }
+
+    public bool IsUnlocked()
+    {
+        if (gateMode == DialogueGateMode.Always)
+        {
+            return true;
+        }
+
+        if (string.IsNullOrWhiteSpace(gateMissionId))
+        {
+            return true;
+        }
+
+        if (missionManager == null)
+        {
+            missionManager = MissionManager.Instance != null
+                ? MissionManager.Instance
+                : FindFirstObjectByType<MissionManager>();
+        }
+
+        if (missionManager == null)
+        {
+            return false;
+        }
+
+        int gateIndex = missionManager.GetMissionIndex(gateMissionId);
+        if (gateIndex < 0)
+        {
+            return false;
+        }
+
+        MissionManager.Mission gateMission = missionManager.GetMissionByIndex(gateIndex);
+        int currentIndex = missionManager.CurrentMissionIndex;
+
+        switch (gateMode)
+        {
+            case DialogueGateMode.RequireMissionCurrent:
+                return missionManager.IsCurrentMission(gateMissionId);
+
+            case DialogueGateMode.RequireMissionStartedOrLater:
+                return currentIndex >= gateIndex;
+
+            case DialogueGateMode.RequireMissionCompleted:
+                return gateMission != null && gateMission.isCompleted;
+
+            default:
+                return true;
+        }
     }
 
     public void NotifyDialogueFinished()
@@ -157,7 +244,7 @@ public class NpcDialogue : MonoBehaviour
 
         if (activePromptText != null)
         {
-            activePromptText.text = promptMessage;
+            activePromptText.text = IsUnlocked() ? promptMessage : lockedPromptMessage;
         }
     }
 

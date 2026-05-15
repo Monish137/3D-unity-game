@@ -135,7 +135,7 @@ public class PlayerSkills : MonoBehaviour
         {
             TrySetTrigger(attackTriggerName);
         }
-
+        
         DamageAnimalInFront();
         Debug.Log($"PlayerSkills: Attack triggered. Power={AttackPower}");
     }
@@ -155,14 +155,58 @@ public class PlayerSkills : MonoBehaviour
         Vector3 origin = attackOrigin != null ? attackOrigin.position + Vector3.up : transform.position + Vector3.up;
         Vector3 direction = attackCamera != null ? attackCamera.transform.forward : transform.forward;
 
-        if (Physics.SphereCast(origin, attackRadius, direction, out RaycastHit hit, attackRange, attackMask, QueryTriggerInteraction.Ignore))
+        RaycastHit[] hits = Physics.SphereCastAll(origin, attackRadius, direction, attackRange, attackMask, QueryTriggerInteraction.Ignore);
+        if (hits.Length == 0)
         {
-            AnimalHealth animalHealth = hit.collider.GetComponentInParent<AnimalHealth>();
-            if (animalHealth != null)
-            {
-                animalHealth.TakeDamage(AttackPower, gameObject);
-            }
+            Debug.Log($"PlayerSkills: Attack missed. Nothing in range (origin={origin}, dir={direction}, range={attackRange}, radius={attackRadius}).");
+            return;
         }
+
+        var damaged = new System.Collections.Generic.HashSet<AnimalHealth>();
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider hitCollider = hits[i].collider;
+            if (hitCollider == null)
+            {
+                continue;
+            }
+
+            if (hitCollider.transform == transform || hitCollider.transform.IsChildOf(transform))
+            {
+                continue;
+            }
+
+            AnimalHealth animalHealth = hitCollider.GetComponentInParent<AnimalHealth>();
+            if (animalHealth == null)
+            {
+                Debug.Log($"PlayerSkills: Hit '{hitCollider.name}' but no AnimalHealth on it or its parents.");
+                continue;
+            }
+
+            if (!damaged.Add(animalHealth))
+            {
+                continue;
+            }
+
+            animalHealth.TakeDamage(AttackPower, gameObject);
+            Debug.Log($"PlayerSkills: Damaged '{animalHealth.gameObject.name}' for {AttackPower}.");
+        }
+
+        if (damaged.Count == 0)
+        {
+            Debug.Log("PlayerSkills: Attack swung but no AnimalHealth was hit.");
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 origin = attackOrigin != null ? attackOrigin.position + Vector3.up : transform.position + Vector3.up;
+        Vector3 direction = attackCamera != null ? attackCamera.transform.forward : transform.forward;
+
+        Gizmos.color = new Color(1f, 0.4f, 0.2f, 0.6f);
+        Gizmos.DrawWireSphere(origin, attackRadius);
+        Gizmos.DrawWireSphere(origin + direction * attackRange, attackRadius);
+        Gizmos.DrawLine(origin, origin + direction * attackRange);
     }
 
     private void TrySetTrigger(string triggerName)

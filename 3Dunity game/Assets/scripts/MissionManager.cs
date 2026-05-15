@@ -42,6 +42,18 @@ public class MissionManager : MonoBehaviour
     public Mission CurrentMission =>
         currentMissionIndex >= 0 && currentMissionIndex < missions.Count ? missions[currentMissionIndex] : null;
 
+    public int CurrentMissionIndex => currentMissionIndex;
+
+    public Mission GetMissionByIndex(int index)
+    {
+        if (index < 0 || index >= missions.Count)
+        {
+            return null;
+        }
+
+        return missions[index];
+    }
+
     private int currentMissionIndex = -1;
 
     private void Awake()
