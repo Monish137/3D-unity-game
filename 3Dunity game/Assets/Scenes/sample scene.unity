@@ -634,6 +634,10 @@ PrefabInstance:
       value: 0.6962
       objectReference: {fileID: 0}
     - target: {fileID: 1203856646013037602, guid: 0a0917aa8d5a96c4dac34dd56cf9cc3b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203856646013037602, guid: 0a0917aa8d5a96c4dac34dd56cf9cc3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 122.248184
       objectReference: {fileID: 0}
@@ -845,6 +849,116 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a47d5a7cdb311b242bed64d10900e570, type: 3}
+--- !u!1 &112193749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 112193752}
+  - component: {fileID: 112193751}
+  - component: {fileID: 112193750}
+  m_Layer: 0
+  m_Name: EctorTalk Trigger (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &112193750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112193749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2f49739b0c2724e8cd5aa3816a4372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcDialogue
+  dialogueLines:
+  - speakerName: "\u4E9A\u745F"
+    content: "\u8FD9\u4E9B\u5F3A\u76D7\u592A\u6B8B\u5FCD\u4E86\uFF0C\u4ED6\u4EEC\u6740\u5BB3\u4E86\u6211\u4EEC\u7684\u670B\u53CB\uFF0C\u711A\u70E7\u4E86\u6211\u4EEC\u7684\u5BB6\u56ED\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u5E78\u4E8F\u6709\u60A8\u5728\uFF0C\u6885\u6797\u5148\u751F\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u5B69\u5B50\uFF0C\u4F60\u53D7\u4F24\u4E86\u5417\uFF1F"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u6211\u8FD8\u6491\u5F97\u4F4F\u3002\u4F46\u8FD9\u4E9B\u5F3A\u76D7\u4E3A\u4EC0\u4E48\u8FD9\u4E48\u5F3A\u5927\uFF1F\u6211\u4EEC\u6751\u5B50\u5E76\u6CA1\u6709\u4EC0\u4E48\u503C\u5F97\u4ED6\u4EEC\u6765\u62A2\u593A\u7684\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u8FD9\u4E9B\u6240\u8C13\u7684\u5F3A\u76D7\u5176\u5B9E\u662F\u4F2A\u88C5\u7684\u3002\u770B\u770B\u4ED6\u4EEC\u7684\u5175\u5668\uFF0C\u90A3\u662F\u6B63\u89C4\u9A91\u58EB\u56E2\u624D\u4F1A\u914D\u5907\u7684\u88C5\u5907\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u9A91\u58EB\u56E2\uFF1F"
+  - speakerName: "\u6885\u6797"
+    content: "\u6CA1\u9519\uFF0C\u4ED6\u4EEC\u662F\u9A91\u58EB\u5C24\u83F2\u65AF\u7684\u624B\u4E0B\u3002\u4ED6\u4EEC\u6765\u8FD9\u91CC\u7684\u76EE\u7684\uFF0C\u662F\u4E3A\u4E86\u6740\u6B7B\u4F60\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u6740\u6B7B\u6211\uFF1F\u51ED\u4EC0\u4E48\uFF1F"
+  - speakerName: "\u6885\u6797"
+    content: "\u73B0\u5728\u662F\u65F6\u5019\u544A\u8BC9\u4F60\u771F\u76F8\u4E86\u3002\u4F60\u662F\u56FD\u738B\u5C24\u745F\u7684\u79C1\u751F\u5B50\uFF0C\u662F\u552F\u4E00\u5408\u6CD5\u7684\u7EE7\u627F\u4EBA\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u8FD9\u2026\u2026\u8FD9\u592A\u96BE\u4EE5\u76F8\u4FE1\u4E86\uFF01"
+  - speakerName: "\u827E\u514B\u7279"
+    content: "\u867D\u7136\u6211\u4E5F\u662F\u521A\u77E5\u9053\uFF0C\u4F46\u6211\u76F8\u4FE1\u6885\u6797\u3002\u73B0\u5728\u4F60\u5728\u8FD9\u91CC\u5DF2\u7ECF\u4E0D\u518D\u5B89\u5168\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u4F60\u5FC5\u987B\u53BB\u738B\u57CE\u3002\u53EA\u6709\u5728\u90A3\u91CC\uFF0C\u4F60\u624D\u80FD\u8BC1\u660E\u4F60\u7684\u8EAB\u4EFD\uFF0C\u593A\u56DE\u5C5E\u4E8E\u4F60\u7684\u547D\u8FD0\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u597D\u597D\u51C6\u5907\u5427\uFF0C\u51C6\u5907\u597D\u4E86\u5C31\u51FA\u53D1\u5427\u3002"
+  - speakerName: "\u65C1\u8FB9\u541B"
+    content: "\u4E9A\u745F\u5728\u7CBE\u5FC3\u51C6\u5907\u540E\uFF0C\u8E0F\u4E0A\u4E86\u524D\u5F80\u738B\u57CE\u7684\u5F81\u9014\u3002\u4ED6\u4F1A\u9047\u5230\u4EC0\u4E48\u6837\u7684\u4EBA\uFF0C\u4EC0\u4E48\u6837\u7684\u4E8B\u5462\uFF1F\u6B32\u77E5\u540E\u4E8B\u5982\u4F55\uFF0C\u4E14\u770B\u4E0B\u56DE\u5206\u89E3\u3002"
+  - speakerName: "\u65C1\u8FB9\u541B"
+    content: "\u6545\u4E8B\u5230\u8FD9\u91CC\u5C31\u544A\u4E00\u6BB5\u843D\u4E86\uFF0C\u611F\u8C22\u966A\u4F34\uFF01"
+  interactionKey: 101
+  oneTimeOnly: 1
+  promptRoot: {fileID: 0}
+  promptText: {fileID: 0}
+  promptMessage: "\u6309 E \u5BF9\u8BDD"
+  missionManager: {fileID: 1495548378}
+  missionId: talk_after_battle
+  completeMissionWhenDialogueEnds: 1
+  gateMode: 3
+  gateMissionId: defend_village
+  lockedPromptMessage: 
+--- !u!136 &112193751
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112193749}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.2
+  m_Height: 3.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1, z: 0}
+--- !u!4 &112193752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112193749}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 78.82, y: 58.12, z: 210.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &122371408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1364,6 +1478,94 @@ MonoBehaviour:
   markerStartUVY: 0.4263916
   customPoints: []
   handleObject: {fileID: 0}
+--- !u!1 &178960057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 178960060}
+  - component: {fileID: 178960059}
+  - component: {fileID: 178960058}
+  m_Layer: 0
+  m_Name: 'Fight Trigger '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &178960058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178960057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2f49739b0c2724e8cd5aa3816a4372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcDialogue
+  dialogueLines:
+  - speakerName: "\u624B\u65E0\u5BF8\u94C1\u7684\u6751\u6C11"
+    content: "\u4E9A\u745F\uFF01\u4E9A\u745F\uFF01\u5F3A\u76D7\u5DF2\u7ECF\u8FDB\u6751\u4E86\uFF0C\u4ED6\u4EEC\u5728\u6740\u4EBA\u653E\u706B\uFF01"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u4EC0\u4E48\uFF1F\u5DF2\u7ECF\u6765\u4E86\uFF1F"
+  - speakerName: "\u624B\u65E0\u5BF8\u94C1\u7684\u6751\u6C11"
+    content: "\u5FEB\u53BB\u6551\u4EBA\uFF01\u6551\u6551\u6211\u4EEC\uFF01"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u65E0\u8BBA\u5982\u4F55\uFF0C\u6211\u4E0D\u80FD\u8BA9\u6751\u5B50\u9677\u5165\u5371\u9669\u3002\u6211\u5FC5\u987B\u91C7\u53D6\u884C\u52A8\uFF01"
+  interactionKey: 101
+  oneTimeOnly: 1
+  promptRoot: {fileID: 0}
+  promptText: {fileID: 0}
+  promptMessage: "\u6309 E \u5BF9\u8BDD"
+  missionManager: {fileID: 1495548378}
+  missionId: defend_village
+  completeMissionWhenDialogueEnds: 1
+  gateMode: 3
+  gateMissionId: warn_ector
+  lockedPromptMessage: 
+--- !u!136 &178960059
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178960057}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.2
+  m_Height: 3.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1, z: 0}
+--- !u!4 &178960060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178960057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0835499, y: -0.91088235, z: 0.13145268, w: 0.3821425}
+  m_LocalPosition: {x: 126.79, y: 60.919, z: 158.462}
+  m_LocalScale: {x: 0.89983, y: 0.89983, z: 0.89983}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 17.658, y: 225.035, z: -3.113}
 --- !u!1001 &184541099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5626,8 +5828,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 780596092}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.037569765, y: 0.8627944, z: -0.06483041, w: 0.49997148}
-  m_LocalPosition: {x: 129.119, y: 62.209, z: 162.753}
+  m_LocalRotation: {x: 0.008521322, y: -0.9912537, z: 0.082465716, w: 0.1026792}
+  m_LocalPosition: {x: 125.7839, y: 61.8755, z: 159.4556}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8861,6 +9063,98 @@ MonoBehaviour:
   markerStartUVY: 0.672142
   customPoints: []
   handleObject: {fileID: 0}
+--- !u!1 &1139495268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1139495271}
+  - component: {fileID: 1139495270}
+  - component: {fileID: 1139495269}
+  m_Layer: 0
+  m_Name: EctorTalk Trigger (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1139495269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139495268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2f49739b0c2724e8cd5aa3816a4372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NpcDialogue
+  dialogueLines:
+  - speakerName: "\u4E9A\u745F"
+    content: "\u827E\u514B\u7279\u5148\u751F\uFF0C\u6211\u6709\u7D27\u6025\u7684\u4E8B\u60C5\u8981\u544A\u8BC9\u60A8\uFF01"
+  - speakerName: "\u827E\u514B\u7279"
+    content: "\u4E9A\u745F\uFF0C\u600E\u4E48\u4E86\uFF1F\u4F60\u770B\u8D77\u6765\u5F88\u7740\u6025\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u6885\u6797\u5148\u751F\u6765\u5230\u4E86\u6211\u4EEC\u6751\u5E84\uFF0C\u4ED6\u5E26\u6765\u4E86\u574F\u6D88\u606F\u3002\u6709\u4E00\u7FA4\u5F3A\u76D7\u6253\u7B97\u6765\u62A2\u593A\u6211\u4EEC\u6751\u5B50\u3002"
+  - speakerName: "\u827E\u514B\u7279"
+    content: "\u6885\u6797\uFF1F\u4ED6\u6765\u4E86\uFF1F\u8FD9\u7684\u786E\u662F\u4E2A\u574F\u6D88\u606F\u3002"
+  - speakerName: "\u827E\u514B\u7279"
+    content: "\u6211\u9A6C\u4E0A\u53BB\u89C1\u4ED6\u3002\u540C\u65F6\uFF0C\u4F60\u9700\u8981\u8D76\u5FEB\u51C6\u5907\u6B66\u5668\uFF0C\u4FDD\u62A4\u6751\u6C11\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u6211\u660E\u767D\u4E86\uFF0C\u6211\u4F1A\u5C3D\u5FEB\u884C\u52A8\u3002"
+  interactionKey: 101
+  oneTimeOnly: 1
+  promptRoot: {fileID: 0}
+  promptText: {fileID: 0}
+  promptMessage: "\u6309 E \u5BF9\u8BDD"
+  missionManager: {fileID: 1495548378}
+  missionId: warn_ector
+  completeMissionWhenDialogueEnds: 1
+  gateMode: 3
+  gateMissionId: talk_to_merlin
+  lockedPromptMessage: 
+--- !u!136 &1139495270
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139495268}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.2
+  m_Height: 3.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.1, z: 0}
+--- !u!4 &1139495271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139495268}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 78.82, y: 58.12, z: 210.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1161626609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673371,6 +673665,19 @@ MonoBehaviour:
         m_Calls: []
     currentAmount: 0
     isCompleted: 0
+  - id: finish
+    title: "\u81EA\u7531\u5F00\u62D3"
+    description: "\u884C\u52A8\u7ED3\u675F\uFF0C\u8BF7\u81EA\u7531\u63A2\u7D22\u65B0\u624B\u6751\u3002"
+    missionType: 2
+    requiredAmount: 1
+    onMissionStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    onMissionCompleted:
+      m_PersistentCalls:
+        m_Calls: []
+    currentAmount: 0
+    isCompleted: 0
   startingMissionIndex: 0
   missionTitleText: {fileID: 0}
   missionDescriptionText: {fileID: 0}
@@ -675174,6 +675481,7 @@ MonoBehaviour:
   animator: {fileID: 362463488}
   attackTriggerName: Attack
   defenseTriggerName: Defense
+  equippedSwordPrefab: {fileID: 1561796036}
   swordHandBoneName: Hand.R
   swordHandBoneFallbackNames:
   - Hand.R
@@ -675189,9 +675497,9 @@ MonoBehaviour:
   - Bip01 R Hand
   - B_R_Hand
   - DEF-hand.R
-  swordLocalPosition: {x: -0.15, y: 0.1, z: 0.02}
+  swordLocalPosition: {x: 0, y: 0.1, z: 0.02}
   swordLocalRotation: {x: 0, y: 0, z: 90}
-  swordLocalScale: {x: 0.18, y: 0.65, z: 0.08}
+  swordLocalScale: {x: 0.18, y: 0.65, z: 0.8}
   swordFallbackLocalPosition: {x: 0.4, y: 1.1, z: 0.3}
   swordFallbackLocalRotation: {x: 0, y: 0, z: 60}
   swordFallbackLocalScale: {x: 0.18, y: 0.65, z: 0.08}
@@ -726200,17 +726508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d0bf5c04bd6154497f3430503c0c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
-  dialogueRoot: {fileID: 0}
-  speakerNameText: {fileID: 0}
-  dialogueContentText: {fileID: 0}
-  continueHintText: {fileID: 0}
-  advanceKey: 101
-  continueHint: "\u6309 E \u7EE7\u7EED"
-  panelAnchorMin: {x: 0.06, y: 0.04}
-  panelAnchorMax: {x: 0.94, y: 0.27}
-  speakerNameFontSize: 34
-  dialogueContentFontSize: 30
-  continueHintFontSize: 24
 --- !u!1 &1990002000
 GameObject:
   m_ObjectHideFlags: 0
@@ -726223,7 +726520,7 @@ GameObject:
   - component: {fileID: 1990002002}
   - component: {fileID: 1990002003}
   m_Layer: 0
-  m_Name: GypsyTalkTrigger
+  m_Name: talk_to_merlin Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -726288,6 +726585,34 @@ MonoBehaviour:
     content: "\u6211\u662F\u3002\u6211\u6709\u4E00\u4E9B\u91CD\u8981\u7684\u4E8B\u60C5\u8981\u544A\u8BC9\u5927\u5BB6\u3002\u5173\u4E8E\u56FD\u738B\u5C24\u745F\u548C\u4ED6\u7684\u5723\u5251\u3002"
   - speakerName: "\u4E9A\u745F"
     content: "\u5723\u5251\uFF1F\u662F\u5173\u4E8E\u77F3\u4E2D\u5251\u7684\u6545\u4E8B\u5417\uFF1F"
+  - speakerName: "\u6885\u6797"
+    content: "\u6CA1\u9519\u3002\u8C01\u80FD\u62D4\u51FA\u77F3\u4E2D\u4E4B\u5251\uFF0C\u8C01\u5C31\u662F\u5408\u6CD5\u7684\u7EE7\u627F\u4EBA\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u4F46\u81EA\u4ECE\u56FD\u738B\u53BB\u4E16\u540E\uFF0C\u81F3\u4ECA\u65E0\u4EBA\u80FD\u62D4\u51FA\u90A3\u628A\u5251\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u738B\u56FD\u56E0\u6B64\u957F\u671F\u65E0\u4E3B\uFF0C\u52A8\u8361\u4E0D\u5B89\uFF0C\u76D7\u8D3C\u6A2A\u884C\uFF0C\u5916\u654C\u73AF\u4F3A\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u4E9A\u745F\uFF0C\u6211\u542C\u8BF4\u4F60\u7684\u6B66\u827A\u5F88\u597D\uFF0C\u6211\u8BA4\u4E3A\u4F60\u8DB3\u4EE5\u53C2\u52A0\u6BD4\u6B66\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u6211\uFF1F\u4F46\u6211\u53EA\u662F\u4E00\u4E2A\u666E\u901A\u7684\u730E\u4EBA\u2026\u2026"
+  - speakerName: "\u6885\u6797"
+    content: "\u4F60\u662F\u4E00\u4F4D\u52C7\u6562\u800C\u6709\u624D\u534E\u7684\u5E74\u8F7B\u4EBA\uFF0C\u6211\u76F8\u4FE1\u4F60\u6709\u80FD\u529B\u8D62\u5F97\u6BD4\u6B66\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u6885\u6797\u5148\u751F\uFF0C\u6211\u5F88\u611F\u6FC0\u60A8\u7684\u9080\u8BF7\uFF0C\u4F46\u6211\u5FC5\u987B\u62D2\u7EDD\u3002\u6211\u820D\u4E0D\u5F97\u79BB\u5F00\u8FD9\u4E2A\u5C71\u6751\uFF0C\u4E5F\u820D\u4E0D\u5F97\u79BB\u5F00\u827E\u514B\u7279\u5148\u751F\u548C\u670B\u53CB\u4EEC\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u6211\u5C0A\u91CD\u4F60\u7684\u9009\u62E9\u3002\u4F46\u5728\u6B64\u4E4B\u524D\uFF0C\u6211\u8FD8\u6709\u4E00\u4E2A\u4E0D\u592A\u597D\u7684\u6D88\u606F\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u6211\u6765\u8FD9\u91CC\u7684\u8DEF\u4E0A\uFF0C\u542C\u8BF4\u6709\u4E00\u7FA4\u5F3A\u76D7\u6B63\u5728\u8BA1\u5212\u62A2\u593A\u4F60\u4EEC\u6751\u5B50\u3002"
+  - speakerName: "\u4E9A\u745F"
+    content: "\u5F3A\u76D7\uFF1F\u8FD9\u53EF\u4E0D\u662F\u597D\u6D88\u606F\u3002\u6211\u4EEC\u5FC5\u987B\u7ACB\u523B\u901A\u77E5\u827E\u514B\u7279\u5148\u751F\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u4E34\u8D70\u4E4B\u524D\uFF0C\u6211\u6559\u4F60\u4E00\u4E2A\u80FD\u591F\u6218\u80DC\u5F3A\u76D7\u7684\u6CD5\u672F\u5427\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u4F7F\u7528\u9B54\u6CD5\u548F\u5531[\u5355\u51FB\u9F20\u6807\u53F3\u952E]\uFF0C\u5C31\u80FD\u91CA\u653E\u7075\u4F53\u653B\u51FB\u654C\u4EBA\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u7075\u4F53\u7684\u91CA\u653E\u9700\u8981\u6D88\u8017\u9B54\u529B\uFF0C\u4E0D\u8FC7\u522B\u62C5\u5FC3\uFF0C\u9B54\u529B\u4F1A\u968F\u7740\u65F6\u95F4\u81EA\u7136\u6062\u590D\u3002"
+  - speakerName: "\u6885\u6797"
+    content: "\u5E0C\u671B\u4F60\u4EEC\u80FD\u6210\u529F\u5B88\u4F4F\u6751\u5E84\uFF01"
   interactionKey: 101
   oneTimeOnly: 1
   promptRoot: {fileID: 0}
@@ -727525,6 +727850,9 @@ SceneRoots:
   - {fileID: 55520076}
   - {fileID: 384171010}
   - {fileID: 1104537176}
+  - {fileID: 1139495271}
+  - {fileID: 112193752}
+  - {fileID: 178960060}
   - {fileID: 1376445395}
   - {fileID: 1990002001}
   - {fileID: 780596095}

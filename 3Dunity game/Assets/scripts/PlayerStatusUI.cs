@@ -11,6 +11,10 @@ public class PlayerStatusUI : MonoBehaviour
     private RectTransform rootRect;
     private Image healthFill;
     private Image manaFill;
+    private RectTransform healthFillRect;
+    private RectTransform manaFillRect;
+    private float healthFillMaxWidth;
+    private float manaFillMaxWidth;
     private Text healthText;
     private Text manaText;
     private Image skillCooldownFill;
@@ -115,13 +119,13 @@ public class PlayerStatusUI : MonoBehaviour
         Image background = root.AddComponent<Image>();
         background.color = new Color(0f, 0f, 0f, 0.55f);
 
-        CreateBar(root.transform, font, "HP", new Vector2(18f, 62f), new Color(0.82f, 0.12f, 0.12f), out healthFill, out healthText);
-        CreateBar(root.transform, font, "MP", new Vector2(18f, 28f), new Color(0.2f, 0.48f, 0.95f), out manaFill, out manaText);
+        CreateBar(root.transform, font, "HP", new Vector2(18f, 62f), new Color(0.82f, 0.12f, 0.12f), out healthFill, out healthFillRect, out healthFillMaxWidth, out healthText);
+        CreateBar(root.transform, font, "MP", new Vector2(18f, 28f), new Color(0.2f, 0.48f, 0.95f), out manaFill, out manaFillRect, out manaFillMaxWidth, out manaText);
         CreateSkillCooldownUi(root.transform, font);
         CreateHintUi(root.transform, font);
     }
 
-    private void CreateBar(Transform parent, Font font, string label, Vector2 anchoredPosition, Color fillColor, out Image fillImage, out Text valueText)
+    private void CreateBar(Transform parent, Font font, string label, Vector2 anchoredPosition, Color fillColor, out Image fillImage, out RectTransform fillRect, out float fillMaxWidth, out Text valueText)
     {
         GameObject labelObject = new GameObject(label + "Label");
         labelObject.transform.SetParent(parent, false);
@@ -157,16 +161,15 @@ public class PlayerStatusUI : MonoBehaviour
         fillImage = fillObject.AddComponent<Image>();
         fillImage.sprite = backImage.sprite;
         fillImage.color = fillColor;
-        fillImage.type = Image.Type.Filled;
-        fillImage.fillMethod = Image.FillMethod.Horizontal;
-        fillImage.fillOrigin = 0;
-        fillImage.fillAmount = 1f;
+        fillImage.type = Image.Type.Simple;
 
-        RectTransform fillRect = fillObject.GetComponent<RectTransform>();
-        fillRect.anchorMin = Vector2.zero;
-        fillRect.anchorMax = Vector2.one;
-        fillRect.offsetMin = new Vector2(2f, 2f);
-        fillRect.offsetMax = new Vector2(-2f, -2f);
+        fillRect = fillObject.GetComponent<RectTransform>();
+        fillRect.anchorMin = new Vector2(0f, 0f);
+        fillRect.anchorMax = new Vector2(0f, 1f);
+        fillRect.pivot = new Vector2(0f, 0.5f);
+        fillRect.anchoredPosition = new Vector2(2f, 0f);
+        fillRect.sizeDelta = new Vector2(216f, -4f);
+        fillMaxWidth = fillRect.sizeDelta.x;
 
         GameObject valueObject = new GameObject(label + "Value");
         valueObject.transform.SetParent(parent, false);
@@ -280,9 +283,9 @@ public class PlayerStatusUI : MonoBehaviour
 
     private void HandleHealthChanged(int current, int max)
     {
-        if (healthFill != null)
+        if (healthFillRect != null)
         {
-            healthFill.fillAmount = max <= 0 ? 0f : (float)current / max;
+            SetBarWidth(healthFillRect, healthFillMaxWidth, current, max);
         }
 
         if (healthText != null)
@@ -293,15 +296,28 @@ public class PlayerStatusUI : MonoBehaviour
 
     private void HandleManaChanged(int current, int max)
     {
-        if (manaFill != null)
+        if (manaFillRect != null)
         {
-            manaFill.fillAmount = max <= 0 ? 0f : (float)current / max;
+            SetBarWidth(manaFillRect, manaFillMaxWidth, current, max);
         }
 
         if (manaText != null)
         {
             manaText.text = $"{current}/{max}";
         }
+    }
+
+    private static void SetBarWidth(RectTransform fillRect, float maxWidth, int current, int max)
+    {
+        if (fillRect == null)
+        {
+            return;
+        }
+
+        float normalized = max <= 0 ? 0f : Mathf.Clamp01((float)current / max);
+        Vector2 sizeDelta = fillRect.sizeDelta;
+        sizeDelta.x = maxWidth * normalized;
+        fillRect.sizeDelta = sizeDelta;
     }
 
     private void HandleHintRequested(string message)
