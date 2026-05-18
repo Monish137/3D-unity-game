@@ -675483,6 +675483,7 @@ MonoBehaviour:
   defenseTriggerName: Defense
   equippedSwordPrefab: {fileID: 1561796036}
   swordHandBoneName: Hand.R
+  equippedSwordPrefab: {fileID: 2017372464273290904, guid: 0a0917aa8d5a96c4dac34dd56cf9cc3b, type: 3}
   swordHandBoneFallbackNames:
   - Hand.R
   - hand.R
