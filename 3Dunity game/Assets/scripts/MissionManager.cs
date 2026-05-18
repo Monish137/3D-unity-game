@@ -39,6 +39,9 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private Text missionDescriptionText;
     [SerializeField] private Text missionProgressText;
 
+    [Header("Debug")]
+    [SerializeField] private KeyCode skipMissionKey = KeyCode.P;
+
     public Mission CurrentMission =>
         currentMissionIndex >= 0 && currentMissionIndex < missions.Count ? missions[currentMissionIndex] : null;
 
@@ -84,6 +87,14 @@ public class MissionManager : MonoBehaviour
         StartMission(startingMissionIndex);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(skipMissionKey))
+        {
+            SkipCurrentMission();
+        }
+    }
+
     public void StartMission(int missionIndex)
     {
         if (missionIndex < 0 || missionIndex >= missions.Count)
@@ -106,6 +117,18 @@ public class MissionManager : MonoBehaviour
         StartMission(currentMissionIndex + 1);
     }
 
+    public void SkipCurrentMission()
+    {
+        Mission mission = CurrentMission;
+        if (mission == null)
+        {
+            return;
+        }
+
+        Debug.Log($"MissionManager: Skipping mission '{mission.id}' via debug key.");
+        CompleteCurrentMission();
+    }
+
     public void CompleteCurrentMission()
     {
         Mission mission = CurrentMission;
@@ -117,8 +140,37 @@ public class MissionManager : MonoBehaviour
         mission.isCompleted = true;
         mission.currentAmount = Mathf.Max(mission.currentAmount, mission.requiredAmount);
         mission.onMissionCompleted?.Invoke();
+        HandleMissionRewards(mission);
         UpdateUI();
         AdvanceToNextMission();
+    }
+
+    public bool IsMissionCompleted(string missionId)
+    {
+        if (string.IsNullOrWhiteSpace(missionId))
+        {
+            return false;
+        }
+
+        int missionIndex = GetMissionIndex(missionId);
+        return missionIndex >= 0 && missions[missionIndex].isCompleted;
+    }
+
+    private void HandleMissionRewards(Mission mission)
+    {
+        if (mission == null)
+        {
+            return;
+        }
+
+        if (mission.id == "talk_to_merlin")
+        {
+            PlayerSkills playerSkills = FindFirstObjectByType<PlayerSkills>();
+            if (playerSkills != null)
+            {
+                playerSkills.UnlockPhantomSkill();
+            }
+        }
     }
 
     public void AddProgress(string missionId, int amount = 1)

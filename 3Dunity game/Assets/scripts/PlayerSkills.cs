@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSkills : MonoBehaviour
@@ -12,7 +13,15 @@ public class PlayerSkills : MonoBehaviour
 
     [Header("Input")]
     [SerializeField] private KeyCode attackKey = KeyCode.Mouse0;
-    [SerializeField] private KeyCode defenseKey = KeyCode.Mouse1;
+    [SerializeField] private KeyCode defenseKey = KeyCode.None;
+    [SerializeField] private KeyCode skillKey = KeyCode.Mouse1;
+
+    [Header("Stats")]
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int startingHealth = 100;
+    [SerializeField] private int maxMana = 60;
+    [SerializeField] private int startingMana = 60;
+    [SerializeField] private float manaRegenPerSecond = 1.5f;
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
@@ -51,12 +60,49 @@ public class PlayerSkills : MonoBehaviour
     [SerializeField] private float attackRadius = 1.25f;
     [SerializeField] private LayerMask attackMask = ~0;
     [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private float attackDamageDelay = 0.2f;
+
+    [Header("Skill")]
+    [SerializeField] private bool phantomSkillUnlocked;
+    [SerializeField] private GameObject phantomVisualPrefab;
+    [SerializeField] private GameObject phantomSwordPrefab;
+    [SerializeField] private string phantomVisualLayerName = "Ignore Raycast";
+    [SerializeField] private int phantomSkillManaCost = 20;
+    [SerializeField] private float phantomSkillCooldown = 2f;
+    [SerializeField] private float phantomSkillDamageMultiplier = 0.8f;
+    [SerializeField] private float phantomSkillRangeMultiplier = 1f;
+    [SerializeField] private float phantomSkillRadiusMultiplier = 1f;
+    [SerializeField] private float phantomSkillDamageDelay = 0.15f;
+    [SerializeField] private float phantomLifetime = 0.6f;
+    [SerializeField] private Vector3 phantomSpawnOffset = new Vector3(0f, 0f, 1.5f);
+    [SerializeField] private string lowManaHintText = "魔法不足";
+    [SerializeField] private float lowManaHintCooldown = 1.2f;
+
     private float attackTimer;
+    private float pendingAttackDamageTimer = -1f;
+    private int currentHealth;
+    private int currentMana;
+    private float manaRegenBuffer;
+    private float phantomSkillTimer;
+    private float lowManaHintTimer;
+
 
     public int AttackPower => hasSword ? swordAttackPower : baseAttackPower;
     public int DefensePower => baseDefense + (hasSword ? swordDefenseBonus : 0);
     public bool HasSword => hasSword;
+    public int CurrentHealth => currentHealth;
+    public int MaxHealth => maxHealth;
+    public int CurrentMana => currentMana;
+    public int MaxMana => maxMana;
+    public bool PhantomSkillUnlocked => phantomSkillUnlocked;
+    public float PhantomSkillCooldown => phantomSkillCooldown;
+    public float PhantomSkillCooldownRemaining => Mathf.Max(0f, phantomSkillTimer);
+    public float PhantomSkillCooldownNormalized => phantomSkillCooldown > 0f ? Mathf.Clamp01(phantomSkillTimer / phantomSkillCooldown) : 0f;
     public event Action<bool> SwordEquipChanged;
+    public event Action<int, int> HealthChanged;
+    public event Action<int, int> ManaChanged;
+    public event Action<bool> PhantomSkillUnlockedChanged;
+    public event Action<string> HintRequested;
 
     private void Awake()
     {
@@ -75,13 +121,55 @@ public class PlayerSkills : MonoBehaviour
             attackCamera = Camera.main;
         }
 
+        currentHealth = Mathf.Clamp(startingHealth, 0, Mathf.Max(1, maxHealth));
+        currentMana = Mathf.Clamp(startingMana, 0, Mathf.Max(0, maxMana));
+
         EnsureSwordVisualExists();
         UpdateSwordVisual();
+        NotifyHealthChanged();
+        NotifyManaChanged();
+
+        MissionManager missionManager = MissionManager.Instance != null ? MissionManager.Instance : FindFirstObjectByType<MissionManager>();
+        if (missionManager != null && missionManager.IsMissionCompleted("talk_to_merlin"))
+        {
+            UnlockPhantomSkill();
+        }
     }
 
     private void Update()
     {
         attackTimer -= Time.deltaTime;
+        phantomSkillTimer -= Time.deltaTime;
+        lowManaHintTimer -= Time.deltaTime;
+
+        if (currentMana < maxMana && manaRegenPerSecond > 0f)
+        {
+            manaRegenBuffer += manaRegenPerSecond * Time.deltaTime;
+            if (manaRegenBuffer >= 1f)
+            {
+                int manaToRestore = Mathf.Min(maxMana - currentMana, Mathf.FloorToInt(manaRegenBuffer));
+                if (manaToRestore > 0)
+                {
+                    currentMana += manaToRestore;
+                    manaRegenBuffer -= manaToRestore;
+                    NotifyManaChanged();
+                }
+            }
+        }
+        else
+        {
+            manaRegenBuffer = 0f;
+        }
+
+        if (pendingAttackDamageTimer >= 0f)
+        {
+            pendingAttackDamageTimer -= Time.deltaTime;
+            if (pendingAttackDamageTimer <= 0f)
+            {
+                pendingAttackDamageTimer = -1f;
+                DamageAnimalInFront();
+            }
+        }
 
         if (!hasSword)
         {
@@ -93,7 +181,12 @@ public class PlayerSkills : MonoBehaviour
             Attack();
         }
 
-        if (Input.GetKeyDown(defenseKey))
+        if (skillKey != KeyCode.None && Input.GetKeyDown(skillKey))
+        {
+            TryUseDefaultSkill();
+        }
+
+        if (defenseKey != KeyCode.None && Input.GetKeyDown(defenseKey))
         {
             Defend();
         }
@@ -130,14 +223,14 @@ public class PlayerSkills : MonoBehaviour
         }
 
         attackTimer = attackCooldown;
+        pendingAttackDamageTimer = Mathf.Max(0f, attackDamageDelay);
 
         if (animator != null)
         {
             TrySetTrigger(attackTriggerName);
         }
-        
-        DamageAnimalInFront();
-        Debug.Log($"PlayerSkills: Attack triggered. Power={AttackPower}");
+
+        Debug.Log($"PlayerSkills: Attack triggered. Power={AttackPower}, damageDelay={pendingAttackDamageTimer:0.00}s");
     }
 
     public void Defend()
@@ -150,19 +243,99 @@ public class PlayerSkills : MonoBehaviour
         Debug.Log($"PlayerSkills: Defense triggered. Defense={DefensePower}");
     }
 
-    private void DamageAnimalInFront()
+    public bool TryUseDefaultSkill()
     {
-        Vector3 origin = attackOrigin != null ? attackOrigin.position + Vector3.up : transform.position + Vector3.up;
-        Vector3 direction = attackCamera != null ? attackCamera.transform.forward : transform.forward;
-
-        RaycastHit[] hits = Physics.SphereCastAll(origin, attackRadius, direction, attackRange, attackMask, QueryTriggerInteraction.Ignore);
-        if (hits.Length == 0)
+        if (!phantomSkillUnlocked || phantomSkillTimer > 0f)
         {
-            Debug.Log($"PlayerSkills: Attack missed. Nothing in range (origin={origin}, dir={direction}, range={attackRange}, radius={attackRadius}).");
+            return false;
+        }
+
+        if (!ConsumeMana(phantomSkillManaCost))
+        {
+            RequestHint(lowManaHintText);
+            return false;
+        }
+
+        Vector3 spawnPosition = transform.position + transform.TransformDirection(phantomSpawnOffset);
+        GameObject phantomObject = new GameObject("PhantomSlash");
+        phantomObject.transform.position = spawnPosition;
+        phantomObject.transform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+
+        PhantomSkill phantomSkill = phantomObject.AddComponent<PhantomSkill>();
+        phantomSkill.Initialize(
+            this,
+            Mathf.Max(1, Mathf.RoundToInt(AttackPower * phantomSkillDamageMultiplier)),
+            attackRange * phantomSkillRangeMultiplier,
+            attackRadius * phantomSkillRadiusMultiplier,
+            phantomSkillDamageDelay,
+            phantomLifetime,
+            phantomVisualPrefab,
+            phantomSwordPrefab,
+            phantomVisualLayerName,
+            swordHandBoneName,
+            swordHandBoneFallbackNames,
+            swordLocalPosition,
+            swordLocalRotation,
+            swordLocalScale);
+
+        phantomSkillTimer = phantomSkillCooldown;
+        Debug.Log("PlayerSkills: Phantom skill cast.");
+        return true;
+    }
+
+    public void UnlockPhantomSkill()
+    {
+        if (phantomSkillUnlocked)
+        {
             return;
         }
 
-        var damaged = new System.Collections.Generic.HashSet<AnimalHealth>();
+        phantomSkillUnlocked = true;
+        PhantomSkillUnlockedChanged?.Invoke(true);
+        Debug.Log("PlayerSkills: Phantom skill unlocked.");
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth - Mathf.Max(0, amount), 0, Mathf.Max(1, maxHealth));
+        NotifyHealthChanged();
+    }
+
+    public void RestoreHealth(int amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + Mathf.Max(0, amount), 0, Mathf.Max(1, maxHealth));
+        NotifyHealthChanged();
+    }
+
+    public bool ConsumeMana(int amount)
+    {
+        int manaCost = Mathf.Max(0, amount);
+        if (currentMana < manaCost)
+        {
+            return false;
+        }
+
+        currentMana -= manaCost;
+        NotifyManaChanged();
+        return true;
+    }
+
+    public void RestoreMana(int amount)
+    {
+        currentMana = Mathf.Clamp(currentMana + Mathf.Max(0, amount), 0, Mathf.Max(0, maxMana));
+        NotifyManaChanged();
+    }
+
+    public void DealSlashDamage(Vector3 origin, Vector3 direction, float range, float radius, int damage, GameObject attacker, Transform ignoreRoot = null)
+    {
+        RaycastHit[] hits = Physics.SphereCastAll(origin, radius, direction.normalized, range, attackMask, QueryTriggerInteraction.Ignore);
+        if (hits.Length == 0)
+        {
+            Debug.Log($"PlayerSkills: Attack missed. Nothing in range (origin={origin}, dir={direction}, range={range}, radius={radius}).");
+            return;
+        }
+
+        var damaged = new HashSet<AnimalHealth>();
         for (int i = 0; i < hits.Length; i++)
         {
             Collider hitCollider = hits[i].collider;
@@ -171,7 +344,7 @@ public class PlayerSkills : MonoBehaviour
                 continue;
             }
 
-            if (hitCollider.transform == transform || hitCollider.transform.IsChildOf(transform))
+            if (ignoreRoot != null && (hitCollider.transform == ignoreRoot || hitCollider.transform.IsChildOf(ignoreRoot)))
             {
                 continue;
             }
@@ -188,14 +361,42 @@ public class PlayerSkills : MonoBehaviour
                 continue;
             }
 
-            animalHealth.TakeDamage(AttackPower, gameObject);
-            Debug.Log($"PlayerSkills: Damaged '{animalHealth.gameObject.name}' for {AttackPower}.");
+            animalHealth.TakeDamage(Mathf.Max(1, damage), attacker);
+            Debug.Log($"PlayerSkills: Damaged '{animalHealth.gameObject.name}' for {damage}.");
         }
 
         if (damaged.Count == 0)
         {
             Debug.Log("PlayerSkills: Attack swung but no AnimalHealth was hit.");
         }
+    }
+
+    private void NotifyHealthChanged()
+    {
+        HealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+
+    private void NotifyManaChanged()
+    {
+        ManaChanged?.Invoke(currentMana, maxMana);
+    }
+
+    private void RequestHint(string message)
+    {
+        if (string.IsNullOrWhiteSpace(message) || lowManaHintTimer > 0f)
+        {
+            return;
+        }
+
+        lowManaHintTimer = Mathf.Max(0.1f, lowManaHintCooldown);
+        HintRequested?.Invoke(message);
+    }
+
+    private void DamageAnimalInFront()
+    {
+        Vector3 origin = attackOrigin != null ? attackOrigin.position + Vector3.up : transform.position + Vector3.up;
+        Vector3 direction = attackCamera != null ? attackCamera.transform.forward : transform.forward;
+        DealSlashDamage(origin, direction, attackRange, attackRadius, AttackPower, gameObject, transform);
     }
 
     private void OnDrawGizmosSelected()
