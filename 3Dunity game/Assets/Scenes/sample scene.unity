@@ -2851,6 +2851,9 @@ MonoBehaviour:
   missionManager: {fileID: 1495548378}
   missionId: go_to_ector
   completeMissionWhenDialogueEnds: 1
+  gateMode: 0
+  gateMissionId: 
+  lockedPromptMessage: "\u73B0\u5728\u8FD8\u4E0D\u80FD\u5BF9\u8BDD"
 --- !u!136 &384171009
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3262,6 +3265,9 @@ MonoBehaviour:
   missionManager: {fileID: 1495548378}
   missionId: pick_up_sword
   completeMissionWhenDialogueEnds: 1
+  gateMode: 0
+  gateMissionId: 
+  lockedPromptMessage: "\u73B0\u5728\u8FD8\u4E0D\u80FD\u5BF9\u8BDD"
 --- !u!136 &400850687
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6774,6 +6780,9 @@ MonoBehaviour:
   missionManager: {fileID: 0}
   missionId: 
   completeMissionWhenDialogueEnds: 1
+  gateMode: 0
+  gateMissionId: 
+  lockedPromptMessage: "\u73B0\u5728\u8FD8\u4E0D\u80FD\u5BF9\u8BDD"
 --- !u!136 &931625812
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8243,6 +8252,9 @@ MonoBehaviour:
   missionManager: {fileID: 1495548378}
   missionId: return_to_ector
   completeMissionWhenDialogueEnds: 1
+  gateMode: 0
+  gateMissionId: 
+  lockedPromptMessage: "\u73B0\u5728\u8FD8\u4E0D\u80FD\u5BF9\u8BDD"
 --- !u!136 &1104537175
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -674620,6 +674632,7 @@ MonoBehaviour:
   attackTriggerName: Attack
   defenseTriggerName: Defense
   swordHandBoneName: Hand.R
+  equippedSwordPrefab: {fileID: 2017372464273290904, guid: 0a0917aa8d5a96c4dac34dd56cf9cc3b, type: 3}
   swordHandBoneFallbackNames:
   - Hand.R
   - hand.R
@@ -725605,17 +725618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d0bf5c04bd6154497f3430503c0c8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
-  dialogueRoot: {fileID: 0}
-  speakerNameText: {fileID: 0}
-  dialogueContentText: {fileID: 0}
-  continueHintText: {fileID: 0}
-  advanceKey: 101
-  continueHint: "\u6309 E \u7EE7\u7EED"
-  panelAnchorMin: {x: 0.06, y: 0.04}
-  panelAnchorMax: {x: 0.94, y: 0.27}
-  speakerNameFontSize: 34
-  dialogueContentFontSize: 30
-  continueHintFontSize: 24
 --- !u!1 &1990002000
 GameObject:
   m_ObjectHideFlags: 0
@@ -725695,6 +725697,9 @@ MonoBehaviour:
   missionManager: {fileID: 1495548378}
   missionId: talk_to_merlin
   completeMissionWhenDialogueEnds: 0
+  gateMode: 0
+  gateMissionId: 
+  lockedPromptMessage: "\u73B0\u5728\u8FD8\u4E0D\u80FD\u5BF9\u8BDD"
 --- !u!1001 &1990145423
 PrefabInstance:
   m_ObjectHideFlags: 0

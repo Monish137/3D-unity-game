@@ -19,6 +19,7 @@ public class PlayerSkills : MonoBehaviour
     [SerializeField] private string attackTriggerName = "Attack";
     [SerializeField] private string defenseTriggerName = "Defense";
     [SerializeField] private string swordHandBoneName = "Hand.R";
+    [SerializeField] private GameObject equippedSwordPrefab;
     [SerializeField] private string[] swordHandBoneFallbackNames =
     {
         "Hand.R",
@@ -245,9 +246,9 @@ public class PlayerSkills : MonoBehaviour
 
         if (attachedToBone)
         {
-            equippedSwordVisual.transform.localPosition = swordLocalPosition;
-            equippedSwordVisual.transform.localRotation = Quaternion.Euler(swordLocalRotation);
-            equippedSwordVisual.transform.localScale = swordLocalScale;
+        equippedSwordVisual.transform.localPosition = swordLocalPosition;
+        equippedSwordVisual.transform.localRotation = Quaternion.Euler(swordLocalRotation);
+        equippedSwordVisual.transform.localScale = swordLocalScale;
         }
         else
         {
@@ -257,30 +258,19 @@ public class PlayerSkills : MonoBehaviour
             Debug.LogWarning($"PlayerSkills: Hand bone '{swordHandBoneName}' not found. Sword visual attached to player root as fallback. Configure 'swordHandBoneName' or 'swordHandBoneFallbackNames' to match your rig.");
         }
 
-        GameObject blade = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        blade.name = "Blade";
-        blade.transform.SetParent(equippedSwordVisual.transform, false);
-        blade.transform.localPosition = new Vector3(0f, 0.55f, 0f);
-        blade.transform.localScale = new Vector3(0.25f, 1.2f, 0.18f);
-        SetVisualMaterial(blade, new Color(0.82f, 0.84f, 0.88f));
-
-        GameObject guard = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        guard.name = "Guard";
-        guard.transform.SetParent(equippedSwordVisual.transform, false);
-        guard.transform.localPosition = new Vector3(0f, 0.04f, 0f);
-        guard.transform.localScale = new Vector3(0.58f, 0.12f, 0.18f);
-        SetVisualMaterial(guard, new Color(0.74f, 0.61f, 0.18f));
-
-        GameObject handle = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        handle.name = "Handle";
-        handle.transform.SetParent(equippedSwordVisual.transform, false);
-        handle.transform.localPosition = new Vector3(0f, -0.18f, 0f);
-        handle.transform.localScale = new Vector3(0.14f, 0.34f, 0.14f);
-        SetVisualMaterial(handle, new Color(0.28f, 0.18f, 0.1f));
-
-        DisableCollider(blade);
-        DisableCollider(guard);
-        DisableCollider(handle);
+        if (equippedSwordPrefab != null)
+        {
+            GameObject swordInstance = Instantiate(equippedSwordPrefab, equippedSwordVisual.transform);
+            swordInstance.name = equippedSwordPrefab.name;
+            swordInstance.transform.localPosition = Vector3.zero;
+            swordInstance.transform.localRotation = Quaternion.identity;
+            swordInstance.transform.localScale = Vector3.one;
+            DisableCollidersInChildren(swordInstance);
+        }
+        else
+        {
+            CreateFallbackSwordVisual();
+        }
     }
 
     private Transform ResolveHandBone()
@@ -388,6 +378,34 @@ public class PlayerSkills : MonoBehaviour
         return null;
     }
 
+    private void CreateFallbackSwordVisual()
+    {
+        GameObject blade = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        blade.name = "Blade";
+        blade.transform.SetParent(equippedSwordVisual.transform, false);
+        blade.transform.localPosition = new Vector3(0f, 0.55f, 0f);
+        blade.transform.localScale = new Vector3(0.25f, 1.2f, 0.18f);
+        SetVisualMaterial(blade, new Color(0.82f, 0.84f, 0.88f));
+
+        GameObject guard = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        guard.name = "Guard";
+        guard.transform.SetParent(equippedSwordVisual.transform, false);
+        guard.transform.localPosition = new Vector3(0f, 0.04f, 0f);
+        guard.transform.localScale = new Vector3(0.58f, 0.12f, 0.18f);
+        SetVisualMaterial(guard, new Color(0.74f, 0.61f, 0.18f));
+
+        GameObject handle = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        handle.name = "Handle";
+        handle.transform.SetParent(equippedSwordVisual.transform, false);
+        handle.transform.localPosition = new Vector3(0f, -0.18f, 0f);
+        handle.transform.localScale = new Vector3(0.14f, 0.34f, 0.14f);
+        SetVisualMaterial(handle, new Color(0.28f, 0.18f, 0.1f));
+
+        DisableCollider(blade);
+        DisableCollider(guard);
+        DisableCollider(handle);
+    }
+
     private static void SetVisualMaterial(GameObject target, Color color)
     {
         Renderer renderer = target.GetComponent<Renderer>();
@@ -406,6 +424,15 @@ public class PlayerSkills : MonoBehaviour
         if (collider != null)
         {
             UnityEngine.Object.Destroy(collider);
+        }
+    }
+
+    private static void DisableCollidersInChildren(GameObject target)
+    {
+        Collider[] colliders = target.GetComponentsInChildren<Collider>(true);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            UnityEngine.Object.Destroy(colliders[i]);
         }
     }
 }
