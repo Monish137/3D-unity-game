@@ -5,6 +5,16 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
+    private class ExternalDragPayload
+    {
+        public string itemId;
+        public string displayName;
+        public InventoryItemType itemType;
+        public int amount;
+        public System.Action<int> onTransferred;
+        public Color color;
+    }
+
     public enum InventoryItemType
     {
         Weapon,
@@ -51,10 +61,13 @@ public class PlayerInventory : MonoBehaviour
     private Text equippedSlotNameText;
     private Text toastText;
     private InventorySlotUI dragSourceSlot;
+    private ExternalDragPayload externalDragPayload;
     private Image dragGhost;
     private Text dragGhostText;
     private Canvas inventoryCanvas;
     private float toastTimer;
+    private CursorLockMode previousCursorLockMode = CursorLockMode.Locked;
+    private bool previousCursorVisible;
 
     private static Sprite sharedSlotSprite;
 
@@ -102,9 +115,14 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(string itemId, string displayName, InventoryItemType itemType, int amount = 1)
     {
+        TryAddItem(itemId, displayName, itemType, amount);
+    }
+
+    public bool TryAddItem(string itemId, string displayName, InventoryItemType itemType, int amount = 1)
+    {
         if (string.IsNullOrWhiteSpace(itemId) || amount <= 0)
         {
-            return;
+            return false;
         }
 
         List<InventoryEntry> slots = GetSlots(itemType);
@@ -114,14 +132,14 @@ public class PlayerInventory : MonoBehaviour
             existing.amount += amount;
             RefreshUi();
             Debug.Log($"Inventory: Added {displayName} x{amount}.");
-            return;
+            return true;
         }
 
         int emptyIndex = FindFirstEmptySlot(slots);
         if (emptyIndex < 0)
         {
             Debug.LogWarning($"Inventory: No empty {itemType} slot available for {displayName}.");
-            return;
+            return false;
         }
 
         slots[emptyIndex] = new InventoryEntry
@@ -134,12 +152,19 @@ public class PlayerInventory : MonoBehaviour
 
         RefreshUi();
         Debug.Log($"Inventory: Added {displayName} x{amount}.");
+        return true;
     }
 
     public bool HasItem(string itemId, int amount = 1)
     {
         InventoryEntry entry = FindItemEntryAcrossSections(itemId);
         return entry != null && entry.amount >= amount;
+    }
+
+    public int GetItemCount(string itemId)
+    {
+        InventoryEntry entry = FindItemEntryAcrossSections(itemId);
+        return entry != null ? entry.amount : 0;
     }
 
     public bool RemoveItem(string itemId, int amount = 1)
@@ -243,9 +268,57 @@ public class PlayerInventory : MonoBehaviour
         UpdateDrag(eventData);
     }
 
+    public void BeginExternalDrag(
+        string itemId,
+        string displayName,
+        InventoryItemType itemType,
+        int amount,
+        Color color,
+        System.Action<int> onTransferred,
+        PointerEventData eventData)
+    {
+        if (string.IsNullOrWhiteSpace(itemId) || amount <= 0)
+        {
+            return;
+        }
+
+        externalDragPayload = new ExternalDragPayload
+        {
+            itemId = itemId,
+            displayName = displayName,
+            itemType = itemType,
+            amount = amount,
+            onTransferred = onTransferred,
+            color = color
+        };
+
+        dragSourceSlot = null;
+
+        if (dragGhost != null)
+        {
+            dragGhost.color = color;
+            dragGhost.gameObject.SetActive(true);
+        }
+
+        if (dragGhostText != null)
+        {
+            dragGhostText.text = string.IsNullOrWhiteSpace(displayName)
+                ? itemId
+                : displayName.Substring(0, Mathf.Min(3, displayName.Length)).ToUpperInvariant();
+            dragGhostText.gameObject.SetActive(true);
+        }
+
+        UpdateDrag(eventData);
+    }
+
     public void UpdateDrag(PointerEventData eventData)
     {
-        if (dragSourceSlot == null || dragGhost == null)
+        if (dragGhost == null)
+        {
+            return;
+        }
+
+        if (dragSourceSlot == null && externalDragPayload == null)
         {
             return;
         }
@@ -259,6 +332,21 @@ public class PlayerInventory : MonoBehaviour
 
     public void EndDrag()
     {
+        EndDrag(false);
+    }
+
+    public void EndDrag(PointerEventData eventData)
+    {
+        if (!IsPointerOverInventorySlot(eventData))
+        {
+            TryDropDraggedItemToWorldReceiver();
+        }
+
+        EndDrag(false);
+    }
+
+    public void EndDrag(bool clearExternalPayload)
+    {
         dragSourceSlot = null;
         if (dragGhost != null)
         {
@@ -269,12 +357,22 @@ public class PlayerInventory : MonoBehaviour
         {
             dragGhostText.gameObject.SetActive(false);
         }
+
+        if (clearExternalPayload)
+        {
+            externalDragPayload = null;
+        }
     }
 
     public void HandleDrop(InventorySlotUI targetSlot)
     {
         if (dragSourceSlot == null || targetSlot == null)
         {
+            if (externalDragPayload != null && targetSlot != null)
+            {
+                HandleExternalDrop(targetSlot);
+            }
+
             return;
         }
 
@@ -304,6 +402,31 @@ public class PlayerInventory : MonoBehaviour
         RefreshUi();
     }
 
+    public void HandleExternalDrop(InventorySlotUI targetSlot)
+    {
+        if (externalDragPayload == null || targetSlot == null)
+        {
+            return;
+        }
+
+        if (targetSlot.ItemType != externalDragPayload.itemType)
+        {
+            return;
+        }
+
+        if (!TryAddItem(
+                externalDragPayload.itemId,
+                externalDragPayload.displayName,
+                externalDragPayload.itemType,
+                externalDragPayload.amount))
+        {
+            return;
+        }
+
+        externalDragPayload.onTransferred?.Invoke(externalDragPayload.amount);
+        EndDrag(true);
+    }
+
     public void HandleSlotClick(InventorySlotUI slotUi)
     {
         InventoryEntry entry = GetSlotEntry(slotUi.ItemType, slotUi.SlotIndex);
@@ -320,6 +443,46 @@ public class PlayerInventory : MonoBehaviour
         {
             ConsumeFood(entry.itemId);
         }
+    }
+
+    private void TryDropDraggedItemToWorldReceiver()
+    {
+        if (dragSourceSlot == null)
+        {
+            return;
+        }
+
+        InventoryEntry entry = GetSlotEntry(dragSourceSlot.ItemType, dragSourceSlot.SlotIndex);
+        if (entry == null)
+        {
+            return;
+        }
+
+        VillagerWeaponReceiver[] receivers = FindObjectsByType<VillagerWeaponReceiver>(FindObjectsSortMode.None);
+        for (int i = 0; i < receivers.Length; i++)
+        {
+            VillagerWeaponReceiver receiver = receivers[i];
+            if (receiver == null || !receiver.isActiveAndEnabled)
+            {
+                continue;
+            }
+
+            if (receiver.TryReceiveDraggedItem(this, entry.itemId, 1))
+            {
+                ShowToast("Weapon Given");
+                return;
+            }
+        }
+    }
+
+    private bool IsPointerOverInventorySlot(PointerEventData eventData)
+    {
+        if (eventData == null || eventData.pointerEnter == null)
+        {
+            return false;
+        }
+
+        return eventData.pointerEnter.GetComponentInParent<InventorySlotUI>() != null;
     }
 
     private void RefreshUi()
@@ -349,7 +512,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (inventoryHintText != null)
         {
-            inventoryHintText.text = "B Open/Close   Drag to move   Click food to use   Click sword or 1 to equip";
+            inventoryHintText.text = "B Open/Close   Drag to move   Drag villager weapons near villagers to give";
         }
 
         for (int i = 0; i < slotUis.Count; i++)
@@ -601,6 +764,32 @@ public class PlayerInventory : MonoBehaviour
         {
             inventoryRoot.SetActive(isVisible);
         }
+
+        if (isVisible)
+        {
+            previousCursorLockMode = Cursor.lockState;
+            previousCursorVisible = Cursor.visible;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = previousCursorLockMode;
+            Cursor.visible = previousCursorVisible;
+        }
+    }
+
+    public void SetInventoryOpen(bool isVisible)
+    {
+        SetInventoryVisible(isVisible);
+    }
+
+    public bool IsInventoryOpen => inventoryRoot != null && inventoryRoot.activeSelf;
+
+    public void CancelAllDrag()
+    {
+        externalDragPayload = null;
+        EndDrag(true);
     }
 
     private static void EnsureSlotCapacity(List<InventoryEntry> slots, int desiredCount)
@@ -742,18 +931,21 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         iconObject.transform.SetParent(transform, false);
         iconImage = iconObject.AddComponent<Image>();
         iconImage.sprite = GetSharedSlotSprite();
+        iconImage.raycastTarget = false;
         iconImage.rectTransform.anchorMin = new Vector2(0.16f, 0.20f);
         iconImage.rectTransform.anchorMax = new Vector2(0.84f, 0.76f);
         iconImage.rectTransform.offsetMin = Vector2.zero;
         iconImage.rectTransform.offsetMax = Vector2.zero;
 
         nameText = CreateText("Name", font, 11, FontStyle.Bold, TextAnchor.UpperCenter);
+        nameText.raycastTarget = false;
         nameText.rectTransform.anchorMin = new Vector2(0.06f, 0.58f);
         nameText.rectTransform.anchorMax = new Vector2(0.94f, 0.90f);
         nameText.rectTransform.offsetMin = Vector2.zero;
         nameText.rectTransform.offsetMax = Vector2.zero;
 
         amountText = CreateText("Amount", font, 13, FontStyle.Bold, TextAnchor.LowerRight);
+        amountText.raycastTarget = false;
         amountText.rectTransform.anchorMin = new Vector2(0.08f, 0.04f);
         amountText.rectTransform.anchorMax = new Vector2(0.92f, 0.24f);
         amountText.rectTransform.offsetMin = Vector2.zero;
@@ -781,7 +973,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        inventory.EndDrag();
+        inventory.EndDrag(eventData);
     }
 
     public void OnDrop(PointerEventData eventData)

@@ -74,6 +74,7 @@ public class MissionManager : MonoBehaviour
         }
 
         EnsureObjectiveTrackerExists();
+        EnsureChapterOneAutoSetupExists();
     }
 
     private void Start()
@@ -264,8 +265,8 @@ public class MissionManager : MonoBehaviour
 
         missions.Add(CreateMission(
             "arm_villagers",
-            "武装村民",
-            "在强盗到来前，为村民准备足够的武器。",
+            "收集并交付武器",
+            "前往 Armed weapons 收集 4 份武器补给，再回去交给村民。",
             MissionType.DeliverItems,
             4));
 
@@ -395,5 +396,16 @@ public class MissionManager : MonoBehaviour
 
         GameObject trackerObject = new GameObject("ObjectiveTracker");
         trackerObject.AddComponent<ObjectiveTracker>();
+    }
+
+    private void EnsureChapterOneAutoSetupExists()
+    {
+        if (FindFirstObjectByType<ChapterOneAutoSetup>() != null)
+        {
+            return;
+        }
+
+        GameObject setupObject = new GameObject("ChapterOneAutoSetup");
+        setupObject.AddComponent<ChapterOneAutoSetup>();
     }
 }

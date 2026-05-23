@@ -194,6 +194,21 @@ public class ObjectiveTracker : MonoBehaviour
             return null;
         }
 
+        if (missionId == "defend_village")
+        {
+            Transform enemyTarget = FindNearestActiveEnemy();
+            if (enemyTarget != null)
+            {
+                return enemyTarget;
+            }
+
+            DefendVillageController defendZone = FindFirstObjectByType<DefendVillageController>();
+            if (defendZone != null)
+            {
+                return defendZone.transform;
+            }
+        }
+
         Transform target = FindTargetFromObjects(FindObjectsByType<NpcDialogue>(FindObjectsSortMode.None), "missionId", missionId);
         if (target != null) return target;
 
@@ -205,6 +220,33 @@ public class ObjectiveTracker : MonoBehaviour
 
         target = FindTargetFromObjects(FindObjectsByType<MissionTrigger>(FindObjectsSortMode.None), "missionId", missionId);
         return target;
+    }
+
+    private Transform FindNearestActiveEnemy()
+    {
+        Camera camera = GetGameplayCamera();
+        Vector3 origin = camera != null ? camera.transform.position : Vector3.zero;
+        EnemyHealth[] enemies = FindObjectsByType<EnemyHealth>(FindObjectsSortMode.None);
+        EnemyHealth bestEnemy = null;
+        float bestDistance = float.MaxValue;
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            EnemyHealth enemy = enemies[i];
+            if (enemy == null || enemy.IsDead || !enemy.CanBeTargeted)
+            {
+                continue;
+            }
+
+            float distance = Vector3.Distance(origin, enemy.transform.position);
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                bestEnemy = enemy;
+            }
+        }
+
+        return bestEnemy != null ? bestEnemy.transform : null;
     }
 
     private Transform FindTargetFromObjects<T>(T[] objects, string fieldName, string missionId) where T : MonoBehaviour

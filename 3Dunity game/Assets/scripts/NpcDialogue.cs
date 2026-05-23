@@ -218,6 +218,8 @@ public class NpcDialogue : MonoBehaviour
         dialogueStarted = false;
         hasCompletedDialogue = true;
 
+        gameObject.SendMessageUpwards("OnNpcDialogueFinished", this, SendMessageOptions.DontRequireReceiver);
+
         if (completeMissionWhenDialogueEnds &&
             missionManager != null &&
             !string.IsNullOrWhiteSpace(missionId) &&

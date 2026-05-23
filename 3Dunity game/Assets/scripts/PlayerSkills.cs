@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerSkills : MonoBehaviour
 {
@@ -86,11 +87,13 @@ public class PlayerSkills : MonoBehaviour
     private float manaRegenBuffer;
     private float phantomSkillTimer;
     private float lowManaHintTimer;
+    private PlayerInventory playerInventory;
 
 
     public int AttackPower => hasSword ? swordAttackPower : baseAttackPower;
     public int DefensePower => baseDefense + (hasSword ? swordDefenseBonus : 0);
     public bool HasSword => hasSword;
+    public GameObject EquippedSwordPrefab => equippedSwordPrefab;
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public int CurrentMana => currentMana;
@@ -121,6 +124,8 @@ public class PlayerSkills : MonoBehaviour
         {
             attackCamera = Camera.main;
         }
+
+        playerInventory = GetComponent<PlayerInventory>();
 
         currentHealth = Mathf.Clamp(startingHealth, 0, Mathf.Max(1, maxHealth));
         currentMana = Mathf.Clamp(startingMana, 0, Mathf.Max(0, maxMana));
@@ -173,6 +178,11 @@ public class PlayerSkills : MonoBehaviour
         }
 
         if (!hasSword)
+        {
+            return;
+        }
+
+        if (IsUiBlockingCombatInput())
         {
             return;
         }
@@ -336,7 +346,10 @@ public class PlayerSkills : MonoBehaviour
             return;
         }
 
-        var damaged = new HashSet<AnimalHealth>();
+        var damagedAnimals = new HashSet<AnimalHealth>();
+        var damagedEnemies = new HashSet<EnemyHealth>();
+        bool hitAnyTarget = false;
+
         for (int i = 0; i < hits.Length; i++)
         {
             Collider hitCollider = hits[i].collider;
@@ -350,25 +363,39 @@ public class PlayerSkills : MonoBehaviour
                 continue;
             }
 
-            AnimalHealth animalHealth = hitCollider.GetComponentInParent<AnimalHealth>();
-            if (animalHealth == null)
+            EnemyHealth enemyHealth = hitCollider.GetComponentInParent<EnemyHealth>();
+            if (enemyHealth != null && enemyHealth.CanBeTargeted)
             {
-                Debug.Log($"PlayerSkills: Hit '{hitCollider.name}' but no AnimalHealth on it or its parents.");
+                if (damagedEnemies.Add(enemyHealth))
+                {
+                    enemyHealth.TakeDamage(Mathf.Max(1, damage), attacker);
+                    hitAnyTarget = true;
+                    Debug.Log($"PlayerSkills: Damaged enemy '{enemyHealth.gameObject.name}' for {damage}.");
+                }
+
                 continue;
             }
 
-            if (!damaged.Add(animalHealth))
+            AnimalHealth animalHealth = hitCollider.GetComponentInParent<AnimalHealth>();
+            if (animalHealth == null)
+            {
+                Debug.Log($"PlayerSkills: Hit '{hitCollider.name}' but no EnemyHealth or AnimalHealth on it or its parents.");
+                continue;
+            }
+
+            if (!damagedAnimals.Add(animalHealth))
             {
                 continue;
             }
 
             animalHealth.TakeDamage(Mathf.Max(1, damage), attacker);
+            hitAnyTarget = true;
             Debug.Log($"PlayerSkills: Damaged '{animalHealth.gameObject.name}' for {damage}.");
         }
 
-        if (damaged.Count == 0)
+        if (!hitAnyTarget)
         {
-            Debug.Log("PlayerSkills: Attack swung but no AnimalHealth was hit.");
+            Debug.Log("PlayerSkills: Attack swung but no valid target was hit.");
         }
     }
 
@@ -551,6 +578,21 @@ public class PlayerSkills : MonoBehaviour
         {
             equippedSwordVisual.SetActive(hasSword);
         }
+    }
+
+    private bool IsUiBlockingCombatInput()
+    {
+        if (playerInventory == null)
+        {
+            playerInventory = GetComponent<PlayerInventory>();
+        }
+
+        if (playerInventory != null && playerInventory.IsInventoryOpen)
+        {
+            return true;
+        }
+
+        return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
     }
 
     private static Transform FindChildRecursive(Transform root, string childName)
