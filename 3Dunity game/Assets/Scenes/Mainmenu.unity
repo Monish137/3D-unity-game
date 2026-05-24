@@ -388,9 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Text
-      value: 'Start
-
-'
+      value: "\u5F00\u59CB\u6E38\u620F\n"
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -563,9 +561,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Press ESC
-
-'
+  m_text: "\u6309ESC\u8FD4\u56DE\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -659,7 +655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Text
-      value: Quit
+      value: "\u9000\u51FA\u6E38\u620F"
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1244,9 +1240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_Text
-      value: 'Instructions
-
-'
+      value: "\u64CD\u4F5C\u4ECB\u7ECD\n"
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1438,12 +1432,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Controls:\r\n\r\n\u2022 Press B - Open Player Inventory Bag\r\n\u2022
-    Press 1 - Equip Weapon\r\n\u2022 Press 2 - Eat Food\r\n\u2022 Mouse Left/Right
-    - Combat"
+  m_text: "\u64CD\u4F5C\u4ECB\u7ECD:\r\n\u2022 ESC - \u6682\u505C\n\u2022 WASD -
+    \u63A7\u5236\u65B9\u5411\n\u2022 \u9F20\u6807\u5DE6\u952E - \u5E73\u780D\n\u2022
+    \u9F20\u6807\u53F3\u952E - \u91CA\u653E\u6280\u80FD\n\u2022 \u957F\u6309Shift
+    - \u5954\u8DD1\n\u2022 \u6309\u4E0B E - \u573A\u666F\u4EA4\u4E92\r\n\u2022 \u6309\u4E0B
+    B - \u6253\u5F00\u80CC\u5305\r\n\u2022 \u6309\u4E0B 1 - \u88C5\u5907\u6B66\u5668\r\n\u2022
+    \u6309\u4E0B 2 - \u5403\u98DF\u7269\r\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a3856228d40a7f147a78e25bbe586eb0, type: 2}
+  m_sharedMaterial: {fileID: -5844382506732621668, guid: a3856228d40a7f147a78e25bbe586eb0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1899,9 +1896,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 11400004, guid: a93c012dd9ef6454fa7d140e976926f7, type: 3}
       propertyPath: m_Text
-      value: 'Game
-
-'
+      value: "\u4E9A\u745F\u738B\u4F20\u5947\n"
       objectReference: {fileID: 0}
     - target: {fileID: 22400002, guid: a93c012dd9ef6454fa7d140e976926f7, type: 3}
       propertyPath: m_Pivot.x

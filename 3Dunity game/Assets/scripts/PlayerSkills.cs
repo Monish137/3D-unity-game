@@ -89,6 +89,7 @@ public class PlayerSkills : MonoBehaviour
     private float manaRegenBuffer;
     private float phantomSkillTimer;
     private float lowManaHintTimer;
+    private bool isDead;
     private PlayerInventory playerInventory;
 
 
@@ -104,11 +105,13 @@ public class PlayerSkills : MonoBehaviour
     public float PhantomSkillCooldown => phantomSkillCooldown;
     public float PhantomSkillCooldownRemaining => Mathf.Max(0f, phantomSkillTimer);
     public float PhantomSkillCooldownNormalized => phantomSkillCooldown > 0f ? Mathf.Clamp01(phantomSkillTimer / phantomSkillCooldown) : 0f;
+    public bool IsDead => isDead;
     public event Action<bool> SwordEquipChanged;
     public event Action<int, int> HealthChanged;
     public event Action<int, int> ManaChanged;
     public event Action<bool> PhantomSkillUnlockedChanged;
     public event Action<string> HintRequested;
+    public event Action Died;
 
     private void Awake()
     {
@@ -146,6 +149,11 @@ public class PlayerSkills : MonoBehaviour
 
     private void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         attackTimer -= Time.deltaTime;
         phantomSkillTimer -= Time.deltaTime;
         lowManaHintTimer -= Time.deltaTime;
@@ -311,13 +319,37 @@ public class PlayerSkills : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         currentHealth = Mathf.Clamp(currentHealth - Mathf.Max(0, amount), 0, Mathf.Max(1, maxHealth));
         NotifyHealthChanged();
+
+        if (currentHealth > 0)
+        {
+            return;
+        }
+
+        isDead = true;
+        pendingAttackDamageTimer = -1f;
+        Died?.Invoke();
     }
 
     public void RestoreHealth(int amount)
     {
         currentHealth = Mathf.Clamp(currentHealth + Mathf.Max(0, amount), 0, Mathf.Max(1, maxHealth));
+        NotifyHealthChanged();
+    }
+
+    public void ReviveInPlace()
+    {
+        isDead = false;
+        pendingAttackDamageTimer = -1f;
+        attackTimer = 0f;
+        phantomSkillTimer = 0f;
+        currentHealth = Mathf.Max(1, maxHealth);
         NotifyHealthChanged();
     }
 

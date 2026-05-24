@@ -8,6 +8,10 @@ public class PauseMenuController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject pauseMenuRoot;
     [SerializeField] private GameObject audioPanel;
+    [SerializeField] private GameObject deathMenuRoot;
+
+    [Header("Gameplay")]
+    [SerializeField] private PlayerSkills playerSkills;
 
     [Header("Scene Flow")]
     [SerializeField] private string mainMenuSceneName = "Mainmenu";
@@ -19,6 +23,7 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private AudioClip buttonClickSound;
 
     private bool isPaused;
+    private bool isDeathMenuOpen;
     private CursorLockMode previousLockMode = CursorLockMode.Locked;
     private bool previousCursorVisible;
     private Canvas pauseCanvas;
@@ -30,6 +35,11 @@ public class PauseMenuController : MonoBehaviour
         if (menuManager == null)
         {
             menuManager = FindFirstObjectByType<MenuManager>();
+        }
+
+        if (playerSkills == null)
+        {
+            playerSkills = FindFirstObjectByType<PlayerSkills>();
         }
 
         if (pauseMenuRoot != null)
@@ -45,10 +55,33 @@ public class PauseMenuController : MonoBehaviour
         {
             audioPanel.SetActive(false);
         }
+
+        if (deathMenuRoot != null)
+        {
+            deathMenuRoot.SetActive(false);
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (playerSkills == null)
+        {
+            playerSkills = FindFirstObjectByType<PlayerSkills>();
+        }
+
+        if (playerSkills != null)
+        {
+            playerSkills.Died += ShowDeathMenu;
+        }
     }
 
     private void Update()
     {
+        if (isDeathMenuOpen)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
@@ -64,7 +97,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void PauseGame()
     {
-        if (isPaused)
+        if (isPaused || isDeathMenuOpen)
         {
             return;
         }
@@ -87,7 +120,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void ResumeGame()
     {
-        if (!isPaused)
+        if (!isPaused || isDeathMenuOpen)
         {
             return;
         }
@@ -140,6 +173,63 @@ public class PauseMenuController : MonoBehaviour
         }
 
         audioPanel.SetActive(!audioPanel.activeSelf);
+    }
+
+    public void ShowDeathMenu()
+    {
+        if (isDeathMenuOpen)
+        {
+            return;
+        }
+
+        isDeathMenuOpen = true;
+        isPaused = false;
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SetPauseMenuVisible(false);
+
+        if (audioPanel != null)
+        {
+            audioPanel.SetActive(false);
+        }
+
+        if (deathMenuRoot != null)
+        {
+            deathMenuRoot.SetActive(true);
+        }
+    }
+
+    public void HideDeathMenu()
+    {
+        isDeathMenuOpen = false;
+
+        if (deathMenuRoot != null)
+        {
+            deathMenuRoot.SetActive(false);
+        }
+    }
+
+    public void ReviveInPlace()
+    {
+        if (playerSkills == null)
+        {
+            return;
+        }
+
+        PlayUiSound(buttonClickSound);
+        playerSkills.ReviveInPlace();
+        HideDeathMenu();
+        Cursor.lockState = previousLockMode;
+        Cursor.visible = previousCursorVisible;
+        Time.timeScale = 1f;
+    }
+
+    public void QuitFromDeathMenu()
+    {
+        PlayUiSound(buttonClickSound);
+        HideDeathMenu();
+        QuitGame();
     }
 
     public void SetMasterVolume(float value)
@@ -249,6 +339,11 @@ public class PauseMenuController : MonoBehaviour
 
     private void OnDisable()
     {
+        if (playerSkills != null)
+        {
+            playerSkills.Died -= ShowDeathMenu;
+        }
+
         if (isPaused)
         {
             RestoreGameplayState(true);
@@ -257,6 +352,11 @@ public class PauseMenuController : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (playerSkills != null)
+        {
+            playerSkills.Died -= ShowDeathMenu;
+        }
+
         if (isPaused)
         {
             RestoreGameplayState(true);
