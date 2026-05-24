@@ -63,6 +63,8 @@ public class PlayerSkills : MonoBehaviour
     [SerializeField] private LayerMask attackMask = ~0;
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float attackDamageDelay = 0.2f;
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] [Range(0f, 1f)] private float attackSoundVolume = 1f;
 
     [Header("Skill")]
     [SerializeField] private bool phantomSkillUnlocked;
@@ -235,6 +237,7 @@ public class PlayerSkills : MonoBehaviour
 
         attackTimer = attackCooldown;
         pendingAttackDamageTimer = Mathf.Max(0f, attackDamageDelay);
+        PlayAttackSound();
 
         if (animator != null)
         {
@@ -425,6 +428,20 @@ public class PlayerSkills : MonoBehaviour
         Vector3 origin = attackOrigin != null ? attackOrigin.position + Vector3.up : transform.position + Vector3.up;
         Vector3 direction = attackCamera != null ? attackCamera.transform.forward : transform.forward;
         DealSlashDamage(origin, direction, attackRange, attackRadius, AttackPower, gameObject, transform);
+    }
+
+    private void PlayAttackSound()
+    {
+        if (AudioSystem.Instance != null)
+        {
+            AudioSystem.Instance.PlaySfx(attackSound, attackSoundVolume);
+            return;
+        }
+
+        if (attackSound != null)
+        {
+            AudioSource.PlayClipAtPoint(attackSound, transform.position, attackSoundVolume);
+        }
     }
 
     private void OnDrawGizmosSelected()
